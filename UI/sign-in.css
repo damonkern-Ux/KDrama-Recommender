@@ -1,0 +1,257 @@
+/* ==== Animations ==== */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==== Body ==== */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    background-color: black;
+    margin: 0;
+    transition: all 0.5s;
+}
+
+/* ==== Buttons ==== */
+.button1 {
+    background-color: #ff00ff4d;
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    padding: 5px 10px;
+    width: 30%;
+    height: 30%;
+    margin-top: 5%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 13.3px;
+    font-family: sans-serif;
+    font-weight: bold;
+}
+
+.button1:hover {
+    opacity: 0.7; /* corrected decimal */
+}
+
+.button1:active {
+    background-color: #ff00ff;
+}
+
+/* ==== Main Container ==== */
+.main {
+    background-color: #000000;
+    border: 1px solid rgba(255, 0, 255, 0.3);
+    border-radius: 25px;
+    box-shadow: 0 1px 15px rgba(255, 0, 255, 0.49);
+    padding: 3% 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 600px;
+    margin: auto;
+
+    opacity: 0; /* Start invisible */
+    animation: fadeIn 0.5s ease-out forwards;
+    animation-delay: 0.5s; /* After initial load */
+}
+
+/* ==== menubar ==== */
+
+
+.menucontainer {
+    position: sticky;
+    top: 0;
+    z-index: 999; /* Ensures it stays on top of other content */
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    animation: fadeUp 0.5s ease forwards;
+    animation-delay: 0s; /* Same as menubar or adjust if needed */
+}
+
+.menubar {
+    background-color: black;
+    border-radius: 15px;
+    border-style: none;
+    border-color: black;
+    box-shadow: 0 1px 15px rgba(255, 0, 255, 0.49);
+    width: 100%;
+    margin: 0 0 5% 0;
+    padding: 3px 0;
+    height: auto;
+    display: inline-flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+
+    animation: fadeUp 0.5s ease forwards;
+    animation-delay: 0s;
+}
+
+
+/* ==== menu items ==== */
+
+/* Home (default active look) */
+.menu-item-default {
+    color: white;
+    font-family: sans-serif;
+    padding: 0 10px;
+    transition: all 0.5s;
+    border-bottom: 1px solid transparent;
+    border-bottom-color: #ff00ff7d;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-radius: 5px;
+    cursor: pointer;
+    order: 0;
+}
+
+/* Normal menu items */
+.menu-item {
+    color: #ffffff7d;
+    font-family: sans-serif;
+    padding: 0 10px;
+    transition: all 0.5s;
+    border-bottom: 1px solid transparent;
+}
+.menubar:hover .menu-item-default {
+    color: #ffffff7d;
+    border-bottom-color: transparent;
+}
+.menu-item:hover {
+    color: white;
+    border-bottom-color: #ff00ff7d;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.menu-item-default:hover {
+    color: #ffffff;
+}
+/* ==== Heading ==== */
+.heading {
+    background-color: #000000;
+    border-radius: 40px;
+    border: 1px solid rgba(255, 0, 255, 0.18);
+    box-shadow: 0 1px 15px rgba(255, 0, 255, 0.49);
+    color: #ffffff;
+    display: inline-flex;
+    flex-direction: row-reverse;
+    justify-content: space-around;
+    align-items: stretch;
+    width: 80%;
+    max-width: 250px;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+/* ==== Toggle Buttons ==== */
+.up,
+.dw {
+    width: 50%;
+    border-radius: 15px;
+    font-family: system-ui;
+    font-weight: bold;
+    font-size: 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+
+.up {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+.dw {
+    background-color: #ff00ff3d;
+    color: #ffffff;
+}
+
+/* Hover effects for toggle buttons */
+.up:hover {
+    background-color: #ff00ff3d;
+}
+
+.dw:hover {
+    background-color: #ff00ff3d;
+}
+
+/* When .up is hovered, .dw background changes */
+.up:hover ~ .dw {
+    background-color: #000000;
+}
+
+/* ==== Details Section ==== */
+.details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 15px;
+    margin-top: 15%;
+    width: 100%;
+}
+
+/* ==== Textbox ==== */
+.textbox {
+    background-color: rgba(255, 0, 255, 0.09);
+    backdrop-filter: blur(10px);
+    color: #ffffff;
+    padding: 8px 10px;
+    margin: 5px 0;
+    border: none;
+    border-bottom: 2px solid rgba(255, 0, 255, 0.7);
+    border-radius: 5px 5px 0 0;
+    width: 100%;
+    max-width: 350px;
+    font-size: 1rem;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.textbox:focus {
+    outline: none;
+    border-bottom-color: rgba(0, 0, 255, 0.49);
+    background-color: rgba(255, 0, 255, 0.05);
+}
+
+/* ==== Responsive ==== */
+@media (max-width: 480px) {
+    .heading {
+        width: 90%;
+        font-size: 1rem;
+    }
+
+    .button1,
+    .up,
+    .dw {
+        width: 80%;
+        min-width: unset;
+    }
+
+    .textbox {
+        max-width: 90%;
+    }
+}
