@@ -124,16 +124,15 @@ body {
 }
 
 /* ==== Watch list ==== */
-.watchlist{
+.category{
     border-style: solid;
     border-width: 1px;
     border-color: red;
+    margin-bottom: 25px;
 }
 .heading{
-    border-style: solid;
-    border-width: 1px;
-    border-color: yellow;
     margin: 0px;
+    margin-left: 15px;
     display: inline;
     color: white;
     font-family: sans-serif;
@@ -145,6 +144,7 @@ body {
     border-width: 1px;
     border-color: white;
     margin-top: 15px;
+    margin-left: 15px;
     display:flex;
     flex-wrap: wrap;
     justify-content: left;
@@ -160,6 +160,12 @@ body {
     font-weight: light;
     font-size: 20px;
 }
+/* ==== search container ==== */
+.search-container{
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 15px;
+}
 /* ==== Textbox ==== */
 .textbox {
     background-color: rgba(255, 0, 255, 0.09);
@@ -167,14 +173,15 @@ body {
     color: #ffffff;
     font-family: sans-serif;
     font-size: small;
+    font-size: 1rem;
     padding: 8px 10px;
-    margin: 5px 0;
+    margin-right: 15px;
     border: none;
     border-bottom: 2px solid rgba(255, 0, 255, 0.7);
     border-radius: 5px 5px 0 0;
-    width: 100%;
+    width: 30%;
     max-width: 350px;
-    font-size: 1rem;
+    align-self: right;
     transition: border-color 0.2s ease, background-color 0.2s ease;
 }
 
