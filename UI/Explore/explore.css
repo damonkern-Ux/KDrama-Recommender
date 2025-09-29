@@ -26,9 +26,7 @@ body {
     height: 100vh;
     background-color: black;
     margin: 0;
-    transition: all 0.5s;
 }
-
 /* ==== Main Container ==== */
 .main {
     background-color: #000000;
@@ -126,6 +124,8 @@ body {
 /* ==== Watch list ==== */
 .category{
     margin-bottom: 100px;
+    animation: fadeUp 0.5s ease forwards;
+    animation-delay: 1s;
 }
 .heading{
     margin: 0px;
@@ -147,7 +147,7 @@ body {
 }
 /* ==== Card CSS ==== */
 .card {
-    width: 200px;
+    width: 300px;
     height: 250px;
     perspective: 1000px; /* 3D perspective */
     margin: 10px;
@@ -164,8 +164,6 @@ body {
 
 .card:hover .flip-card-inner {
     transform: rotateY(180deg);
-    width: 400px;
-    height: 400px;
 }
 
 .flip-card-front,
@@ -200,8 +198,25 @@ body {
     border-color: #ff00ff5d;
     border-style: solid;
     border-width: 1px;
+    overflow-y: auto;
     transform: rotateY(180deg);
 }
+/* Chrome, Edge, Safari */
+.flip-card-back::-webkit-scrollbar {
+    width: 6px;               /* scrollbar width */
+}
+
+.flip-card-back::-webkit-scrollbar-track {
+    background: #111;          /* track background */
+    border-radius: 3px;
+}
+
+.flip-card-back::-webkit-scrollbar-thumb {
+    background-color: #ff00ff7d; /* thumb color */
+    border-radius: 3px;
+    border: none;    /* subtle border to blend with card */
+}
+
 .info{
     height: 100%;
     width: 100%;
@@ -216,7 +231,14 @@ body {
 .episodes{
     color: white;
     font-family: sans-serif;
-    font-size: 15px;
+    font-size: 16px;
+    margin-left: 8px;
+    margin-top: 5px;
+}
+.platform{
+    color: #aaa;
+    font-family: sans-serif;
+    font-size: 14px;
     margin-left: 8px;
     margin-top: 5px;
 }
