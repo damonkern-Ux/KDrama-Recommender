@@ -6,7 +6,7 @@ CORS(app)
 
 # Basic user. For testing purposes.
 valid_user = {
-    'username' : 'Antony Edward Stark',
+    'username' : 'A',
     'password' : 'iamademon'
 }
 
