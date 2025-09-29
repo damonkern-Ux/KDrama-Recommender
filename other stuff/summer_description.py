@@ -1,21 +1,39 @@
-from sumy.parsers.plaintext import PlaintextParser
-from sumy.nlp.tokenizers import Tokenizer
-from sumy.summarizers.lex_rank import LexRankSummarizer
-import nltk
-nltk.download('punkt')
-text = """
-Do Do Hee is the successor of the Future Group. She has an arrogant and cool-headed personality...
-Jung Koo Won is a demon. He can live for eternity by making dangerous, but sweet deals with humans...
-"""
-# Step 1: Parse text
-parser = PlaintextParser.from_string(text, Tokenizer("english"))
+from transformers import T5Tokenizer, T5ForConditionalGeneration
+import mysql.connector as mysql
+from os import system
 
-# Step 2: Create summarizer
-summarizer = LexRankSummarizer()
+system("cls")
 
-# Step 3: Summarize: pick 2 sentences
-summary = summarizer(parser.document, 3)
 
-# Step 4: Print the summary
-for sentence in summary:
-    print(sentence)
+def summarizer(text):
+    # Load tokenizer + model
+    tokenizer = T5Tokenizer.from_pretrained("t5-small")
+    model = T5ForConditionalGeneration.from_pretrained("t5-small")
+    # T5 expects a task prefix
+    input_text = "summarize: " + text
+    # Tokenize
+    input_ids = tokenizer.encode(
+        input_text, return_tensors="pt", max_length=512, truncation=True
+    )
+    # Generate summary
+    summary_ids = model.generate(
+        input_ids,
+        max_length=500,  # maximum words in summary
+        min_length=10,  # minimum words in summary
+        length_penalty=2.0,
+        num_beams=4,
+        early_stopping=True,
+    )
+    # Decode
+    summary = tokenizer.decode(summary_ids[0], skip_special_tokens=True)
+    return summary
+
+
+connection = mysql.connect(host="localhost", user="root", password="system")
+cursor = connection.cursor()
+cursor.execute("use dramas;")
+cursor.execute("SELECT drama_name,description FROM drama_table;")
+for record in cursor.fetchall():
+    summary = summarizer(record[1])
+    print(record[0],'\n',summary)
+    print()
