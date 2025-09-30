@@ -20,6 +20,7 @@ def table_maker():
         user="root", password="system", host="localhost", charset="utf8mb4"
     )
     cursor = connection.cursor()
+    cursor.execute("CREATE DATABASE IF NOT EXISTS dramas;")
     cursor.execute("USE dramas;")
     cursor.execute("DROP TABLE IF EXISTS User_Table;")
     cursor.execute("DROP TABLE IF EXISTS Drama_Table;")
@@ -147,7 +148,7 @@ INSERT IGNORE INTO Drama_Table (
     connection.close()
 
 
-os.system("cls")
+os.system("cls" if os.name == 'nt' else 'clear')
 
 
 def data_grabber():
@@ -202,10 +203,10 @@ INSERT IGNORE INTO Drama_Table (
     with open(path, "r", newline="", encoding="utf-8") as file:
         reader_obj = csv.reader(file, quotechar='"', doublequote=True)
         for row in reader_obj:
+            Drama_Name,Year,Episodes_Number,Description,Cast,Tags,Rating,Platform = row
+            if Platform == '': Platform = json.dumps('None')
+            row = (Drama_Name,Year,Episodes_Number,Description,Cast,Tags,Rating,Platform)
             cursor.execute(query, row)
             connection.commit()
     cursor.close()
     connection.close()
-
-
-sql_to_csv()
