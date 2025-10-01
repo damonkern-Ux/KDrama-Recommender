@@ -120,3 +120,196 @@ body {
 .menu-item-default:hover {
     color: #ffffff;
 }
+.heading{
+    margin: 0px;
+    margin-left: 15px;
+    display: inline;
+    color: white;
+    font-family: sans-serif;
+    font-weight: bolder;
+    font-size: 40px;
+    opacity: 0;
+    animation: fadeUp 0.5s ease forwards;
+    animation-delay: 1s;
+}
+.edit-pref{
+    color: white;
+    font-family: sans-serif;
+    font-weight: bold;
+    border: 1px solid #ff00ff;
+    border-radius: 10px;
+    background-color: #ff00ff3d;
+    display: inline;
+    float: right;
+    margin-right: 20px;
+    padding-left: 15px;
+    padding-top: 10px;
+    padding-right: 15px;
+    padding-bottom: 10px;
+    text-align: center;
+    transition: 0.3s;
+    opacity: 0;
+    animation: fadeUp 0.5s ease forwards;
+    animation-delay: 1s;
+}
+.edit-pref:hover{
+    background-color: #ff00ff7d;
+}
+.stat-holder{
+    background-color: #1111;
+    border-radius: 15px;
+    margin-top: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    justify-content: space-around;
+    row-gap: 15px;
+    display:flex;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.5s forwards;
+    animation-delay: 1.5s;
+}
+.stat-card{
+    border: 1px solid #aaa ;
+    background-color: #111;
+    border-radius: 15px;
+    padding-top: 15px;
+    width: 300px;
+    height: 200px;
+    transition: 0.1s;
+    opacity: 0;
+    animation: fadeUp 0.5s forwards;
+    animation-delay: 2s;
+}
+.stat-card:hover{
+    background-color: #222;
+    border: 1px solid #ff00ff7d;
+    transform: scale(1.02);
+    will-change: transform, opacity;
+}
+.stat-label{
+    color: #fff;
+    display: inline;
+    font-family: sans-serif;
+    font-size: 25px;
+    margin-left: 15px;
+    display: block;
+    margin-top: 0px;
+}
+.status{
+    color: #ffffff;
+    font-family: sans-serif;
+    font-size: 18px;
+    font-weight: lighter;
+    padding-left: 25px;
+    padding-right: 35px;
+    text-align: left;
+    margin-top: 10px;
+}
+.next-status{
+    border: 1px solid #aaa;
+    height: 20px;
+    border-radius: 15px;
+    margin-top: 15px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+.next-achievement{
+    color: white;
+    font-family: sans-serif;
+    font-size: 15px;
+    font-weight: lighter;
+    float: left;
+    margin-left: 8px;
+}
+.progress{
+    color: white;
+    font-family: sans-serif;
+    font-size: 15px;
+    font-weight: lighter;
+    float: right;
+    margin-right: 8px;
+}
+.progress-bar{
+    height: 100%;
+    background: linear-gradient(90deg, #ffd700, #ff00ff7d);
+    border-radius: 8px;
+    transition: 0.5s;
+}
+.stat-number{
+    color: #fff;
+    text-align: center;
+    font-family: sans-serif;
+    font-weight: bolder;
+    font-size: 90px;
+    margin-top: 0px;
+}
+.tag-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+.tag {
+    background-color: #555;
+    color: #ffffff; /* gold */
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 15px;
+    font-family: sans-serif;
+    transition: 0.5s;
+}
+.tag:hover {
+    background-color: #000;
+}
+.actor-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+.actor{
+    color: white;
+    background-color: #555;
+    border-radius: 10px;
+    width: 50%;
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    transition: 0.5s;
+}
+.actor:hover{
+    background-color: #000;
+}
+
+.export-import-div{
+    padding-bottom: 15px;
+    padding-top: 15px;
+    display: flex;
+    justify-content: center;
+    column-gap: 20px;
+}
+.buttons{
+    color: white;
+    border: 1px solid #ff00ff7d;
+    border-radius: 10px;
+    background-color: #ff00ff3d;
+    font-family: sans-serif;
+    font-weight: bold;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    display: inline;
+    transition: 0.5s;
+    opacity: 0;
+    animation: fadeUp 0.5s forwards;
+    animation-delay: 2.5s;
+}
+.buttons:hover{
+    background-color: #ff00ff7d;
+}
