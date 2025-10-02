@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from trending_get import trending
+from main_recommender import recommender
 app = Flask(__name__)
 CORS(app)
 
@@ -14,6 +15,9 @@ trends = trending()
 if len(trends)==0:
     # pass info to client side with proper message.
     print('No Internet')
+
+# recommender
+recommender(dramas)
 
 @app.route("/login", methods = ["POST"])
 def login():

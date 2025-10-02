@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 import json
 import re
 import os
+import math
 
 headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
@@ -208,5 +209,33 @@ INSERT IGNORE INTO Drama_Table (
             row = (Drama_Name,Year,Episodes_Number,Description,Cast,Tags,Rating,Platform)
             cursor.execute(query, row)
             connection.commit()
+    cursor.close()
+    connection.close()
+
+def ratings_to_sql():
+    connection = mysql.connect(
+        user="root", password="system", host="localhost", charset="utf8mb4"
+    )
+    cursor = connection.cursor()
+    cursor.execute("USE dramas;")
+    with open('other stuff/ratings.csv','r') as file:
+        listed = []
+        reader_obj = csv.reader(file)
+        for record in reader_obj:
+            name,rating = record[0],float(record[1])
+            rating = round(rating*4,2)
+            rating = round((math.log(rating + 1) / math.log(31)) * 9 + 1, 2)
+            listed.append((name, rating))
+    # Step 2: Sort ratings for percentile ranking
+    sorted_ratings = sorted(r for _, r in listed)
+    n = len(sorted_ratings)
+    # Step 3: Assign percentile-based score and update DB
+    for name, rating in listed:
+        percentile = sorted_ratings.index(rating) / (n - 1)   # 0 → min, 1 → max
+        new_rating = round(percentile * 9 + 1, 2)             # scale to 1–10
+        print(name, rating)
+        query = "UPDATE drama_table SET rating = %s WHERE drama_name LIKE %s;"
+        cursor.execute(query, (new_rating, f"%{name}%"))
+    connection.commit()
     cursor.close()
     connection.close()

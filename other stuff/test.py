@@ -1,25 +1,40 @@
-import csv
-import glob
+import mysql.connector as mysql
 
-# Step 1: List all CSV files
-csv_files = glob.glob("C:\\Users\\CodeUser\\Downloads\\korean_drama.csv\\*.csv")  # adjust path
+watched_list = [
+    "All Of Us Are Dead",            
+    "My Demon",
+    "Backstreet Rookie" ,     
+    "Nevertheless",           
+    "Love Alarm",                  
+    "Descendants Of The Sun",        
+    "Angel’s Last Mission: Love",   
+    "Tale Of The Nine Tailed",   
+    "It’s Okay to Not Be Okay",       
+    "Crash Landing On You",       
+    "Vincenzo",          
+    "My Roommate Is A Gumiho",      
+    "Destined With You",       
+    "Goblin",              
+    "The Judge From Hell",           
+    "Business Proposal",             
+    "The Beauty Inside",             
+    "I’m Not a Robot",               
+    "King The Land",                  
+    "What’s Wrong With Secretary Kim",
+    "Start-Up",
+    "Suspicious Partner",            
+    "True Beauty"  
+]
 
-# Step 2: Prepare to write to combined CSV
-seen_titles = set()
-with open("combined_ratings.csv", "w", newline='', encoding="utf-8") as outfile:
-    writer = None
-    
-    for file in csv_files:
-        with open(file, "r", newline='', encoding="utf-8") as infile:
-            reader = csv.DictReader(infile)
-            
-            if writer is None:
-                # Write header only once
-                writer = csv.DictWriter(outfile, fieldnames=reader.fieldnames)
-                writer.writeheader()
-            
-            for row in reader:
-                title = row['title'].strip()  # adjust column name if needed
-                if title not in seen_titles:
-                    writer.writerow(row)
-                    seen_titles.add(title)
+connection = mysql.connect(host="localhost", user="root", password="system")
+cursor = connection.cursor()
+cursor.execute("USE dramas;")
+for drama in watched_list:
+    cursor.execute("select drama_name from drama_table where drama_name like %s;",(f"%{drama}%",))
+    drama_name = cursor.fetchall()[0][0]
+    print(drama_name)
+    values = (drama_name,'watched')
+    cursor.execute("INSERT IGNORE INTO user_table (drama_name,category) values(%s,%s)",values)
+connection.commit()
+cursor.close()
+connection.close()
