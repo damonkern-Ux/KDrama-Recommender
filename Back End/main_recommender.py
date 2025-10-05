@@ -131,6 +131,3 @@ def recommender():
         )
         return_list.append(cursor.fetchall()[0])
     return return_list
-
-
-print(recommender()[0])

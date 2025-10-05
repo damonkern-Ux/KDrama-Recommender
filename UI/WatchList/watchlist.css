@@ -264,6 +264,7 @@ body {
     top: 100%; /* right below the summary */
     right: 8px;
     margin-top: 5px;
+    width: max-content;
     z-index: 10;
     min-width: 150px;
 }

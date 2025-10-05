@@ -29,13 +29,11 @@ def trending():
             dramas.append(drama_name)
         count+=1
         if count%15==0:break
-    print(len(dramas))
     return_list = []
     for drama_name in dramas:
         values = (f"%{drama_name}%",)
         cursor.execute(f"SELECT * FROM drama_table WHERE drama_name LIKE %s;",values,)
         info = cursor.fetchall()
         if info:
-            print(info[0][:3])
-
-trending()
+            return_list.append(info[0])
+    return return_list[:5]

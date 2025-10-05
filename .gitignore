@@ -2,3 +2,5 @@ UI/.DS_Store
 other stuff/imdb-extractor.py
 other stuff/imdbscraper.py
 other stuff/trending-getter.py
+Back End/__pycache__/main_recommender.cpython-313.pyc
+Back End/__pycache__/trending_get.cpython-313.pyc
