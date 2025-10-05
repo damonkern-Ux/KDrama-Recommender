@@ -1,5 +1,6 @@
 import mysql.connector as mysql
 import re
+import random
 import unicodedata
 
 # Genre grouping dictionary
@@ -47,13 +48,10 @@ GENRE_GROUPS = {
     "Law & Politics": ["Law", "Legal", "Political", "Politic"],
     "Others": ["Other"],
 }
-
 connection = mysql.connect(host="localhost", user="root", password="system")
 cursor = connection.cursor()
 cursor.execute("USE dramas;")
-cursor.execute("SELECT drama_name FROM user_table;")
-dramas = []
-for name in cursor.fetchall():dramas.append(name[0])
+
 
 def tags_getter(drama_seen):
     tag_list = []
@@ -80,7 +78,7 @@ def tag_based_drama_getter(tag_list):
     for tag in tag_list:
         values = (f"%{tag.lower()}%",)
         cursor.execute(
-            f"SELECT drama_name,tags,rating FROM drama_table WHERE LOWER(tags) LIKE %s;",
+            f"SELECT * FROM drama_table WHERE LOWER(tags) LIKE %s;",
             values,
         )
         for drama_name in cursor.fetchall():
@@ -88,7 +86,7 @@ def tag_based_drama_getter(tag_list):
     drama_names = list(set(drama_names))
     drama_final = []
     for drama in drama_names:
-        drama_tag = [x.strip() for x in drama[1].replace('"', "").split(",")]
+        drama_tag = [x.strip() for x in drama[5].replace('"', "").split(",")]
         intersection = list(set(tag_list) & set(drama_tag))
         if len(intersection) >= 3:
             drama_final.append(drama)
@@ -110,11 +108,29 @@ def normalize_title(s):
     s = s.title()
     return s
 
-def recommender(dramas):
-    drama_list = tag_based_drama_getter(tags_getter(dramas))
-    sorted_dramas = sorted(drama_list, key=lambda x: x[2], reverse=True)
 
+def recommender():
+    cursor.execute("SELECT drama_name FROM user_table;")
+    dramas = []
+    for name in cursor.fetchall():
+        dramas.append(name[0])
+
+    drama_list = tag_based_drama_getter(tags_getter(dramas))
+    sorted_dramas = sorted(drama_list, key=lambda x: x[-2], reverse=True)
     drama_list = [normalize_title(x[0]) for x in sorted_dramas]
     dramas = [normalize_title(x) for x in dramas]
     final = [x for x in drama_list if x not in dramas]
-    return final
+    sampled = random.sample(final, 5)
+    return_list = []
+    for drama_name in sampled:
+        values = (f"%{drama_name}%",)
+        cursor.execute(
+            f"SELECT drama_name,year,episodes_number,platform,description\
+                FROM drama_table WHERE drama_name LIKE %s;",
+            values,
+        )
+        return_list.append(cursor.fetchall()[0])
+    return return_list
+
+
+print(recommender()[0])

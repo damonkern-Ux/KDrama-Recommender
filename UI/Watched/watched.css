@@ -208,32 +208,18 @@ body {
     overflow-y: auto;
     transform: rotateY(180deg);
 }
-/* Chrome, Edge, Safari */
-.flip-card-back::-webkit-scrollbar {
-    width: 6px;               /* scrollbar width */
-}
-
-.flip-card-back::-webkit-scrollbar-track {
-    background: #111;          /* track background */
-    border-radius: 3px;
-}
-
-.flip-card-back::-webkit-scrollbar-thumb {
-    background-color: #ff00ff7d; /* thumb color */
-    border-radius: 3px;
-    border: none;    /* subtle border to blend with card */
-}
-
 .info{
     height: 100%;
     width: 100%;
+    align-content: center;
 }
 .year{
     color: white;
     font-family: sans-serif;
     font-size: 25px;
     margin-left: 8px;
-    display: inline;
+    display: block;
+    text-align: center;
 }
 .episodes{
     color: white;
@@ -241,22 +227,15 @@ body {
     font-size: 16px;
     margin-left: 8px;
     margin-top: 5px;
+    display: block;
+    text-align: center;
 }
-.platform{
+.date{
     color: #aaa;
     font-family: sans-serif;
     font-size: 14px;
     margin-left: 8px;
     margin-top: 5px;
-}
-.description{
-    color: white;
-    font-family: sans-serif;
-    font-size: 15px;
-    padding-right: 8px;
-    margin-left: 8px;
-    margin-top: 15px;
-    word-wrap: break-word;  /* wrap long words */
-    white-space: normal;    /* allow line breaks */
-    overflow-wrap: anywhere; /* handles really long unbroken text */ 
+    display: block;
+    text-align: center;
 }

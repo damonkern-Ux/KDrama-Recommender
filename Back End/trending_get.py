@@ -1,6 +1,13 @@
 import requests
 from bs4 import BeautifulSoup
 import re
+import mysql.connector as mysql
+
+connection = mysql.connect(host="localhost", user="root", password="system")
+cursor = connection.cursor()
+cursor.execute("USE dramas;")
+
+
 def trending():
     HEADERS = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
@@ -22,4 +29,13 @@ def trending():
             dramas.append(drama_name)
         count+=1
         if count%15==0:break
-    return dramas
+    print(len(dramas))
+    return_list = []
+    for drama_name in dramas:
+        values = (f"%{drama_name}%",)
+        cursor.execute(f"SELECT * FROM drama_table WHERE drama_name LIKE %s;",values,)
+        info = cursor.fetchall()
+        if info:
+            print(info[0][:3])
+
+trending()

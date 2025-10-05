@@ -24,8 +24,23 @@
 /* ==== Body ==== */
 body {
     height: 100vh;
-    background-color: black;
+    background-color: #000;
     margin: 0;
+    overflow-y: scroll;  /* force scrollbar to appear */
+}
+body::-webkit-scrollbar {
+    width: 6px;               /* scrollbar width */
+}
+
+body::-webkit-scrollbar-track {
+    background: #111;          /* track background */
+    border-radius: 3px;
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: #ff00ff7d; /* thumb color */
+    border-radius: 3px;
+    border: none;    /* subtle border to blend with card */
 }
 /* ==== Main Container ==== */
 .main {
