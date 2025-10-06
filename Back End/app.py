@@ -91,8 +91,8 @@ def get_wishlist():
 
 
 # updater route
-@app.route("/profile", methods=["GET"])
-def get_profile():
+@app.route("/profile", methods=["POST"])
+def update_profile():
     data = request.json
     drama_name = data.get("drama_name")
     status = data.get("status")
