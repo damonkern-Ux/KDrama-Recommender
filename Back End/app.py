@@ -36,7 +36,16 @@ def get_trending():
             jsonify({"status": "fail", "message": "No internet or no trends found"}),
             500,
         )
-    return jsonify({"status": "ok", "trending": trends})
+    trend_list = []
+    for t in trends:
+        trend_list.append({
+            "title": t[0],
+            "year": t[1],
+            "episodes": t[2],
+            "platform": str(str(str(t[3]).replace('"','')).replace("[",'')).replace("]",''),
+            "description": t[4]
+        })
+    return jsonify({"status": "ok", "trending": trend_list})
 
 
 # recommendations route
@@ -49,7 +58,16 @@ def get_recommendations():
                 jsonify({"status": "fail", "message": "No recommendations available"}),
                 404,
             )
-        return jsonify({"status": "ok", "recommendations": recommendation})
+        recommendation_list = []
+        for t in recommendation:
+            recommendation_list.append({
+                "title": t[0],
+                "year": t[1],
+                "episodes": t[2],
+                "platform": str(str(str(t[3]).replace('"','')).replace("[",'')).replace("]",''),
+                "description": t[4]
+            })
+        return jsonify({"status": "ok", "recommendations": recommendation_list})
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
 
@@ -61,7 +79,14 @@ def get_watchlist():
         watchlist = combined_functions.watch_list()
         if not watchlist:
             return jsonify({"status": "fail", "message": "Nothing in Watch List"}), 404
-        return jsonify({"status": "ok", "watchlist": watchlist})
+        watch_list = []
+        for t in watchlist:
+            watch_list.append({
+                "title": t[0],
+                "year": t[1],
+                "description": t[2]
+            })
+        return jsonify({"status": "ok", "watchlist": watch_list})
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
 
@@ -73,7 +98,15 @@ def get_watchedlist():
         watchedlist = combined_functions.watched_list()
         if not watchedlist:
             return jsonify({"status": "fail", "message": "Nothing Watched"}), 404
-        return jsonify({"status": "ok", "watched": watchedlist})
+        watched_list = []
+        for t in watchedlist:
+            watched_list.append({
+                "title": t[0],
+                "year": t[1],
+                "episode": t[2],
+                "time" : t[3]
+            })
+        return jsonify({"status": "ok", "watched": watched_list})
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
 
@@ -102,6 +135,6 @@ def update_profile():
     else:
         return jsonify({"status": "ok", "watched": out})
 
-
 if __name__ == "__main__":
     app.run(debug=True)
+

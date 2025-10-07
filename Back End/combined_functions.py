@@ -22,6 +22,7 @@ def normalize_title(s):
     s = re.sub(r"\s*/\s*", " / ", s)
     s = s.split("/")[-1].strip()
     s = s.title()
+    s = s.title()
     return s
 
 
@@ -33,15 +34,18 @@ def imdb_searcher(drama_name):
 
 def watched_list():
     listed = []
-    cursor.execute("SELECT drama_name FROM user_table WHERE LOWER(category)='watched';")
+    cursor.execute("SELECT drama_name,timestamp FROM user_table WHERE LOWER(category)='watched';")
     for drama in cursor.fetchall():
+        time = str(drama[1])
+        time = time.split()[0].split('-')[::-1]
+        time = f"{time[0]}-{time[1]}-{time[2]}"
         values = (f"%{drama[0]}%",)
         cursor.execute(
             "SELECT drama_name,year,episodes_number FROM drama_table WHERE LOWER(drama_name) LIKE %s;",
             values,
         )
         elements = cursor.fetchall()[0]
-        listed.append((normalize_title(elements[0]), elements[1], elements[2]))
+        listed.append((elements[0], elements[1], elements[2], time))
     return listed
 
 
@@ -66,9 +70,10 @@ def watch_list():
         data = json.loads(imdb_searcher(normalize_title(drama[0])))
         info = (
             normalize_title(drama[0]),
-            data.get("datePublished"),
+            data.get("datePublished").split('-')[0],
             data.get("description"),
         )
+        print(info)
         listed.append(info)
     return listed
 
