@@ -90,6 +90,23 @@ def get_watchlist():
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
 
+# watch-list route
+@app.route("/watchlistexplore", methods=["GET"])
+def get_watchlistexplore():
+    try:
+        watchlist = combined_functions.watch_listexplore()
+        if not watchlist:
+            return jsonify({"status": "fail", "message": "Nothing in Watch List"}), 404
+        watch_list = []
+        for t in watchlist:
+            watch_list.append({
+                "title": t[0],
+                "year": t[1],
+                "description": t[2]
+            })
+        return jsonify({"status": "ok", "watchlist": watch_list})
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
 
 # watched-list route
 @app.route("/watchedlist", methods=["GET"])
@@ -118,7 +135,14 @@ def get_wishlist():
         wishlist = combined_functions.wish_list()
         if not wishlist:
             return jsonify({"status": "fail", "message": "Nothing Wished"}), 404
-        return jsonify({"status": "ok", "watched": wishlist})
+        wish_list = []
+        for t in wishlist:
+            wish_list.append({
+                "title": t[0],
+                "year": t[1],
+                "description" : t[2]
+            })
+        return jsonify({"status": "ok", "wish": wish_list})
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
 

@@ -34,10 +34,12 @@ def imdb_searcher(drama_name):
 
 def watched_list():
     listed = []
-    cursor.execute("SELECT drama_name,timestamp FROM user_table WHERE LOWER(category)='watched';")
+    cursor.execute(
+        "SELECT drama_name,timestamp FROM user_table WHERE LOWER(category)='watched';"
+    )
     for drama in cursor.fetchall():
         time = str(drama[1])
-        time = time.split()[0].split('-')[::-1]
+        time = time.split()[0].split("-")[::-1]
         time = f"{time[0]}-{time[1]}-{time[2]}"
         values = (f"%{drama[0]}%",)
         cursor.execute(
@@ -54,9 +56,10 @@ def wish_list():
     cursor.execute("SELECT drama_name FROM user_table WHERE LOWER(category)='wish';")
     for drama in cursor.fetchall():
         data = json.loads(imdb_searcher(normalize_title(drama[0])))
+        time = data.get("datePublished").split("-")[0]
         info = (
             normalize_title(drama[0]),
-            data.get("datePublished"),
+            time,
             data.get("description"),
         )
         listed.append(info)
@@ -70,11 +73,28 @@ def watch_list():
         data = json.loads(imdb_searcher(normalize_title(drama[0])))
         info = (
             normalize_title(drama[0]),
-            data.get("datePublished").split('-')[0],
+            data.get("datePublished").split("-")[0],
             data.get("description"),
         )
-        print(info)
         listed.append(info)
+    return listed
+
+
+def watch_listexplore():
+    listed = []
+    cursor.execute("SELECT drama_name FROM user_table WHERE LOWER(category)='watch';")
+    count = 0
+    for drama in cursor.fetchall():
+        data = json.loads(imdb_searcher(normalize_title(drama[0])))
+        info = (
+            normalize_title(drama[0]),
+            data.get("datePublished").split("-")[0],
+            data.get("description"),
+        )
+        listed.append(info)
+        count = count + 1
+        if count == 5:
+            break
     return listed
 
 

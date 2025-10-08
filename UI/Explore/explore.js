@@ -95,7 +95,7 @@ async function fetchredommended() {
 
 async function fetchwatchlist() {
     try {
-        const res = await fetch("http://127.0.0.1:5000/watchlist");
+        const res = await fetch("http://127.0.0.1:5000/watchlistexplore");
         const data = await res.json();
         
         if (data.status === "ok") {
