@@ -48,12 +48,13 @@ GENRE_GROUPS = {
     "Law & Politics": ["Law", "Legal", "Political", "Politic"],
     "Others": ["Other"],
 }
-connection = mysql.connect(host="localhost", user="root", password="system")
-cursor = connection.cursor()
-cursor.execute("USE dramas;")
+
 
 
 def tags_getter(drama_seen):
+    connection = mysql.connect(host="localhost", user="root", password="system")
+    cursor = connection.cursor()
+    cursor.execute("USE dramas;")
     tag_list = []
     for drama in drama_seen:
         values = (f"%{drama}%",)
@@ -70,10 +71,15 @@ def tags_getter(drama_seen):
             if tag.capitalize() in value:
                 final_tag_list.append(key)
     final_tag_list = list(set(final_tag_list))
+    connection.close()
+    cursor.close()
     return final_tag_list
 
 
 def tag_based_drama_getter(tag_list):
+    connection = mysql.connect(host="localhost", user="root", password="system")
+    cursor = connection.cursor()
+    cursor.execute("USE dramas;")
     drama_names = []
     for tag in tag_list:
         values = (f"%{tag.lower()}%",)
@@ -90,6 +96,8 @@ def tag_based_drama_getter(tag_list):
         intersection = list(set(tag_list) & set(drama_tag))
         if len(intersection) >= 3:
             drama_final.append(drama)
+    cursor.close()
+    connection.close()
     return drama_final
 
 
@@ -110,6 +118,9 @@ def normalize_title(s):
 
 
 def recommender():
+    connection = mysql.connect(host="localhost", user="root", password="system")
+    cursor = connection.cursor()
+    cursor.execute("USE dramas;")
     cursor.execute("SELECT drama_name FROM user_table;")
     dramas = []
     for name in cursor.fetchall():
@@ -130,4 +141,6 @@ def recommender():
             values,
         )
         return_list.append(cursor.fetchall()[0])
+    cursor.close()
+    connection.close()
     return return_list

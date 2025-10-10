@@ -38,13 +38,17 @@ def get_trending():
         )
     trend_list = []
     for t in trends:
-        trend_list.append({
-            "title": t[0],
-            "year": t[1],
-            "episodes": t[2],
-            "platform": str(str(str(t[3]).replace('"','')).replace("[",'')).replace("]",''),
-            "description": t[4]
-        })
+        trend_list.append(
+            {
+                "title": t[0],
+                "year": t[1],
+                "episodes": t[2],
+                "platform": str(
+                    str(str(t[3]).replace('"', "")).replace("[", "")
+                ).replace("]", ""),
+                "description": t[4],
+            }
+        )
     return jsonify({"status": "ok", "trending": trend_list})
 
 
@@ -60,13 +64,17 @@ def get_recommendations():
             )
         recommendation_list = []
         for t in recommendation:
-            recommendation_list.append({
-                "title": t[0],
-                "year": t[1],
-                "episodes": t[2],
-                "platform": str(str(str(t[3]).replace('"','')).replace("[",'')).replace("]",''),
-                "description": t[4]
-            })
+            recommendation_list.append(
+                {
+                    "title": t[0],
+                    "year": t[1],
+                    "episodes": t[2],
+                    "platform": str(
+                        str(str(t[3]).replace('"', "")).replace("[", "")
+                    ).replace("]", ""),
+                    "description": t[4],
+                }
+            )
         return jsonify({"status": "ok", "recommendations": recommendation_list})
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
@@ -81,14 +89,11 @@ def get_watchlist():
             return jsonify({"status": "fail", "message": "Nothing in Watch List"}), 404
         watch_list = []
         for t in watchlist:
-            watch_list.append({
-                "title": t[0],
-                "year": t[1],
-                "description": t[2]
-            })
+            watch_list.append({"title": t[0], "year": t[1], "description": t[2]})
         return jsonify({"status": "ok", "watchlist": watch_list})
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
+
 
 # watch-list route
 @app.route("/watchlistexplore", methods=["GET"])
@@ -99,14 +104,11 @@ def get_watchlistexplore():
             return jsonify({"status": "fail", "message": "Nothing in Watch List"}), 404
         watch_list = []
         for t in watchlist:
-            watch_list.append({
-                "title": t[0],
-                "year": t[1],
-                "description": t[2]
-            })
+            watch_list.append({"title": t[0], "year": t[1], "description": t[2]})
         return jsonify({"status": "ok", "watchlist": watch_list})
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
+
 
 # watched-list route
 @app.route("/watchedlist", methods=["GET"])
@@ -117,12 +119,9 @@ def get_watchedlist():
             return jsonify({"status": "fail", "message": "Nothing Watched"}), 404
         watched_list = []
         for t in watchedlist:
-            watched_list.append({
-                "title": t[0],
-                "year": t[1],
-                "episode": t[2],
-                "time" : t[3]
-            })
+            watched_list.append(
+                {"title": t[0], "year": t[1], "episode": t[2], "time": t[3]}
+            )
         return jsonify({"status": "ok", "watched": watched_list})
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
@@ -137,18 +136,14 @@ def get_wishlist():
             return jsonify({"status": "fail", "message": "Nothing Wished"}), 404
         wish_list = []
         for t in wishlist:
-            wish_list.append({
-                "title": t[0],
-                "year": t[1],
-                "description" : t[2]
-            })
+            wish_list.append({"title": t[0], "year": t[1], "description": t[2]})
         return jsonify({"status": "ok", "wish": wish_list})
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
 
 
 # updater route
-@app.route("/profile", methods=["POST"])
+@app.route("/update", methods=["POST"])
 def update_profile():
     data = request.json
     drama_name = data.get("drama_name")
@@ -159,6 +154,25 @@ def update_profile():
     else:
         return jsonify({"status": "ok", "watched": out})
 
+
+# profile route
+@app.route("/profile", methods=["GET"])
+def send_profile():
+    out = combined_functions.profile()
+    if not out:
+        return jsonify({"status": "error", "message": str(out)}), 500
+    else:
+        out_ = {"watch": out[0], "watched": out[1], "wish": out[2]}
+        return jsonify({"status": "ok", "watched": out_})
+
+
+@app.route("/update-drama", methods=["POST"])
+def update_drama():
+    data = request.get_json()
+    title = data["title"]
+    action = data["action"]
+    return {"status": "ok"}
+
+
 if __name__ == "__main__":
     app.run(debug=True)
-

@@ -304,3 +304,6 @@ body {
     white-space: normal;    /* allow line breaks */
     overflow-wrap: anywhere; /* handles really long unbroken text */ 
 }
+.stat-card1{
+    color: white;
+}

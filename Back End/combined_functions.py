@@ -4,11 +4,6 @@ import json
 import unicodedata
 import PyMovieDb
 
-connection = mysql.connect(host="localhost", user="root", password="system")
-cursor = connection.cursor()
-cursor.execute("USE dramas;")
-
-
 def normalize_title(s):
     # 1. Unicode normalize (so fullwidth chars → normal ones)
     s = unicodedata.normalize("NFKC", s)
@@ -33,6 +28,9 @@ def imdb_searcher(drama_name):
 
 
 def watched_list():
+    connection = mysql.connect(host="localhost", user="root", password="system")
+    cursor = connection.cursor()
+    cursor.execute("USE dramas;")
     listed = []
     cursor.execute(
         "SELECT drama_name,timestamp FROM user_table WHERE LOWER(category)='watched';"
@@ -48,10 +46,15 @@ def watched_list():
         )
         elements = cursor.fetchall()[0]
         listed.append((elements[0], elements[1], elements[2], time))
+    cursor.close()
+    connection.close()
     return listed
 
 
 def wish_list():
+    connection = mysql.connect(host="localhost", user="root", password="system")
+    cursor = connection.cursor()
+    cursor.execute("USE dramas;")
     listed = []
     cursor.execute("SELECT drama_name FROM user_table WHERE LOWER(category)='wish';")
     for drama in cursor.fetchall():
@@ -63,10 +66,15 @@ def wish_list():
             data.get("description"),
         )
         listed.append(info)
+    cursor.close()
+    connection.close()
     return listed
 
 
 def watch_list():
+    connection = mysql.connect(host="localhost", user="root", password="system")
+    cursor = connection.cursor()
+    cursor.execute("USE dramas;")
     listed = []
     cursor.execute("SELECT drama_name FROM user_table WHERE LOWER(category)='watch';")
     for drama in cursor.fetchall():
@@ -77,10 +85,15 @@ def watch_list():
             data.get("description"),
         )
         listed.append(info)
+    cursor.close()
+    connection.close()
     return listed
 
 
 def watch_listexplore():
+    connection = mysql.connect(host="localhost", user="root", password="system")
+    cursor = connection.cursor()
+    cursor.execute("USE dramas;")
     listed = []
     cursor.execute("SELECT drama_name FROM user_table WHERE LOWER(category)='watch';")
     count = 0
@@ -95,43 +108,54 @@ def watch_listexplore():
         count = count + 1
         if count == 5:
             break
+    cursor.close()
+    connection.close()
     return listed
 
 
 def profile():
-    watched, watch, wish = len(watched_list()), len(watch_list()), len(wish_list())
-    total_achievements = watched // 10
-    progress = watched % 10
-    return [watch, watched, wish, total_achievements, progress]
+    connection = mysql.connect(host="localhost", user="root", password="system")
+    cursor = connection.cursor()
+    cursor.execute("USE dramas;")
+    cursor.execute("SELECT COUNT(drama_name) FROM user_table WHERE LOWER(category)='watch';")
+    watch = cursor.fetchone()[0]
+    cursor.execute("SELECT COUNT(drama_name) FROM user_table WHERE LOWER(category)='watched';")
+    watched = cursor.fetchone()[0]
+    cursor.execute("SELECT COUNT(drama_name) FROM user_table WHERE LOWER(category)='wish';")
+    wish = cursor.fetchone()[0]
+    cursor.close()
+    connection.close()
+    return [watch, watched, wish]
 
 
-def updater(drama_name, status):
-    try:
-        if status == "watched":
-            cursor.execute(
-                "UPDATE user_table SET category='watched' WHERE drama_name LIKE %s;",
-                (f"%{drama_name}%",),
-            )
-        elif status == "watch":
-            cursor.execute(
-                "UPDATE user_table SET category='watch' WHERE drama_name LIKE %s;",
-                (f"%{drama_name}%",),
-            )
-        elif status == "wish":
-            cursor.execute(
-                "UPDATE user_table SET category='wish' WHERE drama_name LIKE %s;",
-                (f"%{drama_name}%",),
-            )
-        elif status == "remove-wish":
-            cursor.execute(
-                "DELETE FROM user_table WHERE drama_name LIKE %s;",
-                (f"%{drama_name}%",),
-            )
-        elif status == "remove-watch":
-            cursor.execute(
-                "DELETE FROM user_table WHERE drama_name LIKE %s;",
-                (f"%{drama_name}%",),
-            )
-        return "done"
-    except Exception as e:
-        return e
+# def updater(drama_name, status):
+#     try:
+#         if status == "watched":
+#             cursor.execute(
+#                 "UPDATE user_table SET category='watched' WHERE drama_name LIKE %s;",
+#                 (f"%{drama_name}%",),
+#             )
+#         elif status == "watch":
+#             cursor.execute(
+#                 "UPDATE user_table SET category='watch' WHERE drama_name LIKE %s;",
+#                 (f"%{drama_name}%",),
+#             )
+#         elif status == "wish":
+#             cursor.execute(
+#                 "UPDATE user_table SET category='wish' WHERE drama_name LIKE %s;",
+#                 (f"%{drama_name}%",),
+#             )
+#         elif status == "remove-wish":
+#             cursor.execute(
+#                 "DELETE FROM user_table WHERE drama_name LIKE %s;",
+#                 (f"%{drama_name}%",),
+#             )
+#         elif status == "remove-watch":
+#             cursor.execute(
+#                 "DELETE FROM user_table WHERE drama_name LIKE %s;",
+#                 (f"%{drama_name}%",),
+#             )
+#         return "done"
+#     except Exception as e:
+#         return e
+
