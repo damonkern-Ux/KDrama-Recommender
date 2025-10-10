@@ -49,7 +49,7 @@ async function fetchwishlist() {
                 <summary class="option">Add</summary>
                 <div class="dropdown-menu">
                     <div>Remove from Wishlist</div>
-                    <div>Mark as Watch</div>
+                    <div>Mark as Watched</div>
                     <div>Add to Watchlist</div>
                 </div>
                 </details>

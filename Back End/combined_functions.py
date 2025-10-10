@@ -4,6 +4,7 @@ import json
 import unicodedata
 import PyMovieDb
 
+
 def normalize_title(s):
     # 1. Unicode normalize (so fullwidth chars → normal ones)
     s = unicodedata.normalize("NFKC", s)
@@ -59,11 +60,14 @@ def wish_list():
     cursor.execute("SELECT drama_name FROM user_table WHERE LOWER(category)='wish';")
     for drama in cursor.fetchall():
         data = json.loads(imdb_searcher(normalize_title(drama[0])))
+        description = data.get("description")
+        if description == "null":
+            description = "Description is not available for this drama on IMDB."
         time = data.get("datePublished").split("-")[0]
         info = (
             normalize_title(drama[0]),
             time,
-            data.get("description"),
+            description,
         )
         listed.append(info)
     cursor.close()
@@ -99,10 +103,13 @@ def watch_listexplore():
     count = 0
     for drama in cursor.fetchall():
         data = json.loads(imdb_searcher(normalize_title(drama[0])))
+        description = data.get("description")
+        if description == "null":
+            description = "Description is not available for this drama on IMDB."
         info = (
             normalize_title(drama[0]),
             data.get("datePublished").split("-")[0],
-            data.get("description"),
+            description,
         )
         listed.append(info)
         count = count + 1
@@ -117,45 +124,38 @@ def profile():
     connection = mysql.connect(host="localhost", user="root", password="system")
     cursor = connection.cursor()
     cursor.execute("USE dramas;")
-    cursor.execute("SELECT COUNT(drama_name) FROM user_table WHERE LOWER(category)='watch';")
+    cursor.execute(
+        "SELECT COUNT(drama_name) FROM user_table WHERE LOWER(category)='watch';"
+    )
     watch = cursor.fetchone()[0]
-    cursor.execute("SELECT COUNT(drama_name) FROM user_table WHERE LOWER(category)='watched';")
+    cursor.execute(
+        "SELECT COUNT(drama_name) FROM user_table WHERE LOWER(category)='watched';"
+    )
     watched = cursor.fetchone()[0]
-    cursor.execute("SELECT COUNT(drama_name) FROM user_table WHERE LOWER(category)='wish';")
+    cursor.execute(
+        "SELECT COUNT(drama_name) FROM user_table WHERE LOWER(category)='wish';"
+    )
     wish = cursor.fetchone()[0]
     cursor.close()
     connection.close()
     return [watch, watched, wish]
 
 
-# def updater(drama_name, status):
-#     try:
-#         if status == "watched":
-#             cursor.execute(
-#                 "UPDATE user_table SET category='watched' WHERE drama_name LIKE %s;",
-#                 (f"%{drama_name}%",),
-#             )
-#         elif status == "watch":
-#             cursor.execute(
-#                 "UPDATE user_table SET category='watch' WHERE drama_name LIKE %s;",
-#                 (f"%{drama_name}%",),
-#             )
-#         elif status == "wish":
-#             cursor.execute(
-#                 "UPDATE user_table SET category='wish' WHERE drama_name LIKE %s;",
-#                 (f"%{drama_name}%",),
-#             )
-#         elif status == "remove-wish":
-#             cursor.execute(
-#                 "DELETE FROM user_table WHERE drama_name LIKE %s;",
-#                 (f"%{drama_name}%",),
-#             )
-#         elif status == "remove-watch":
-#             cursor.execute(
-#                 "DELETE FROM user_table WHERE drama_name LIKE %s;",
-#                 (f"%{drama_name}%",),
-#             )
-#         return "done"
-#     except Exception as e:
-#         return e
-
+def database_updator(drama_name, action):
+    drama_name = normalize_title(drama_name)
+    connection = mysql.connect(host="localhost", user="root", password="system")
+    cursor = connection.cursor()
+    cursor.execute("USE dramas;")
+    cursor.execute("SELECT drama_name, category FROM user_table WHERE drama_name LIKE %s;",(f"%{drama_name}%",))
+    data = cursor.fetchall()
+    actions_dictionary = {
+        "add to watchlist": 101,
+        "mark as watched": 102,
+        "mark as wish": 103,
+        "remove from watchlist": 201,
+        "remove from wishlist": 301,
+    }
+    action_id = actions_dictionary[action.lower()]
+    print(drama_name,action_id)
+    cursor.close()
+    connection.close()

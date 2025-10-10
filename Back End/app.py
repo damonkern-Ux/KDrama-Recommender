@@ -136,7 +136,7 @@ def get_wishlist():
             return jsonify({"status": "fail", "message": "Nothing Wished"}), 404
         wish_list = []
         for t in wishlist:
-            wish_list.append({"title": t[0], "year": t[1], "description": t[2]})
+            wish_list.append({"title": t[0], "year": t[1], "description": t[2] if t[2] != "null" else "Not Available In IMDB."})
         return jsonify({"status": "ok", "wish": wish_list})
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
@@ -171,6 +171,7 @@ def update_drama():
     data = request.get_json()
     title = data["title"]
     action = data["action"]
+    combined_functions.database_updator(title,action)
     return {"status": "ok"}
 
 
