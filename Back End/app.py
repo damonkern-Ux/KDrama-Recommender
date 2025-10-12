@@ -89,7 +89,11 @@ def get_watchlist():
             return jsonify({"status": "fail", "message": "Nothing in Watch List"}), 404
         watch_list = []
         for t in watchlist:
-            watch_list.append({"title": t[0], "year": t[1], "description": t[2]})
+            watch_list.append({"title": t[0],
+                                "year": t[1],
+                                "episode": t[2],
+                                "description": t[3]})
+        print(watch_list)
         return jsonify({"status": "ok", "watchlist": watch_list})
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
@@ -104,10 +108,16 @@ def get_watchlistexplore():
             return jsonify({"status": "fail", "message": "Nothing in Watch List"}), 404
         watch_list = []
         for t in watchlist:
-            watch_list.append({"title": t[0], "year": t[1], "description": t[2]})
+            watch_list.append({"title": t[0],
+                                "year": t[1],
+                                "episode": t[2],
+                                "description": t[3]})
         return jsonify({"status": "ok", "watchlist": watch_list})
     except Exception as e:
-        return jsonify({"status": "error", "message": str(e)}), 500
+        return (
+            jsonify({"status": "error", "message": str(e) + "\nIMDB Not Available"}),
+            500,
+        )
 
 
 # watched-list route
@@ -132,11 +142,19 @@ def get_watchedlist():
 def get_wishlist():
     try:
         wishlist = combined_functions.wish_list()
+        if wishlist == "IMDB not Available":
+            return jsonify({"status": "fail", "message": "IMDB not Available"}), 404
         if not wishlist:
             return jsonify({"status": "fail", "message": "Nothing Wished"}), 404
         wish_list = []
         for t in wishlist:
-            wish_list.append({"title": t[0], "year": t[1], "description": t[2] if t[2] != "null" else "Not Available In IMDB."})
+            wish_list.append(
+                {
+                    "title": t[0],
+                    "year": t[1],
+                    "description": t[2] if t[2] != "null" else "Not Available In IMDB.",
+                }
+            )
         return jsonify({"status": "ok", "wish": wish_list})
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
@@ -171,8 +189,29 @@ def update_drama():
     data = request.get_json()
     title = data["title"]
     action = data["action"]
-    combined_functions.database_updator(title,action)
+    combined_functions.database_updator(title, action)
     return {"status": "ok"}
+
+
+@app.route("/search", methods=["POST"])
+def search():
+    print("recieved")
+    data = request.get_json()
+    print("Received data:", data)
+    return_list = []
+    search_results = combined_functions.search(data["query"])
+    for drama in search_results:
+        return_list.append(
+            {
+                "title": drama[0],
+                "year": drama[1],
+                "episodes": drama[2],
+                "platform": str(str(str(drama[3]).replace('"','')).replace('[','')).replace(']',''),
+                "description": drama[4],
+            }
+        )
+    print(return_list)
+    return jsonify({"status": "ok", "search": return_list})
 
 
 if __name__ == "__main__":

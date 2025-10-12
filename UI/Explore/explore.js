@@ -145,6 +145,7 @@ async function fetchwatchlist() {
                     <div>Mark as Wish</div>
                 </div>
                 </details>
+                <div class="episodes">Episodes :${drama.episode}</div>
                 <div class="description">${drama.description}</div>
             </div>
             </div>
