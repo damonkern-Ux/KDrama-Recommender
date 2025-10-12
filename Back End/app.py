@@ -193,9 +193,7 @@ def update_drama():
 
 @app.route("/search", methods=["POST"])
 def search():
-    print("recieved")
     data = request.get_json()
-    print("Received data:", data)
     return_list = []
     search_results = combined_functions.search(data["query"])
     for drama in search_results:
@@ -210,7 +208,6 @@ def search():
                 "description": drama[4],
             }
         )
-    print(return_list)
     return jsonify({"status": "ok", "search": return_list})
 
 
