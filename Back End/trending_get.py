@@ -44,3 +44,6 @@ def trending():
         if info:
             return_list.append(info[0])
     return return_list[:5]
+
+cursor.close()
+connection.close()

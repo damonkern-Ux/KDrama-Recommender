@@ -92,7 +92,6 @@ def get_watchlist():
             watch_list.append(
                 {"title": t[0], "year": t[1], "episode": t[2], "description": t[3]}
             )
-        print(watch_list)
         return jsonify({"status": "ok", "watchlist": watch_list})
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
