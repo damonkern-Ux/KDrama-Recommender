@@ -4,6 +4,7 @@
         opacity: 0;
         transform: translateY(20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -15,6 +16,7 @@
         opacity: 0;
         transform: translateY(20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -26,22 +28,29 @@ body {
     height: 100vh;
     background-color: #000;
     margin: 0;
-    overflow-y: scroll;  /* force scrollbar to appear */
+    overflow-y: scroll;
+    /* force scrollbar to appear */
 }
+
 body::-webkit-scrollbar {
-    width: 6px;               /* scrollbar width */
+    width: 6px;
+    /* scrollbar width */
 }
 
 body::-webkit-scrollbar-track {
-    background: #111;          /* track background */
+    background: #111;
+    /* track background */
     border-radius: 3px;
 }
 
 body::-webkit-scrollbar-thumb {
-    background-color: #ff00ff7d; /* thumb color */
+    background-color: #ff00ff7d;
+    /* thumb color */
     border-radius: 3px;
-    border: none;    /* subtle border to blend with card */
+    border: none;
+    /* subtle border to blend with card */
 }
+
 /* ==== Main Container ==== */
 .main {
     background-color: #000000;
@@ -56,9 +65,11 @@ body::-webkit-scrollbar-thumb {
     max-width: 600px;
     margin: auto;
 
-    opacity: 0; /* Start invisible */
+    opacity: 0;
+    /* Start invisible */
     animation: fadeIn 0.5s ease-out forwards;
-    animation-delay: 0.5s; /* After initial load */
+    animation-delay: 0.5s;
+    /* After initial load */
 }
 
 /* ==== menubar ==== */
@@ -67,12 +78,14 @@ body::-webkit-scrollbar-thumb {
 .menucontainer {
     position: sticky;
     top: 0;
-    z-index: 999; /* Ensures it stays on top of other content */
+    z-index: 999;
+    /* Ensures it stays on top of other content */
     display: flex;
     width: 100%;
     justify-content: center;
     animation: fadeUp 0.5s ease forwards;
-    animation-delay: 0s; /* Same as menubar or adjust if needed */
+    animation-delay: 0s;
+    /* Same as menubar or adjust if needed */
 }
 
 .menubar {
@@ -119,10 +132,12 @@ body::-webkit-scrollbar-thumb {
     transition: all 0.5s;
     border-bottom: 1px solid transparent;
 }
+
 .menubar:hover .menu-item-default {
     color: #ffffff7d;
     border-bottom-color: transparent;
 }
+
 .menu-item:hover {
     color: white;
     border-bottom-color: #ff00ff7d;
@@ -137,13 +152,14 @@ body::-webkit-scrollbar-thumb {
 }
 
 /* ==== Watch list ==== */
-.category{
+.category {
     margin-bottom: 100px;
     animation: fadeIn 0.5s ease forwards;
     animation-delay: 1s;
     opacity: 0;
 }
-.heading{
+
+.heading {
     margin: 0px;
     margin-left: 15px;
     display: inline;
@@ -155,11 +171,12 @@ body::-webkit-scrollbar-thumb {
     animation: fadeIn 0.1s ease forwards;
     animation-delay: 1s;
 }
-.cards-container{
+
+.cards-container {
 
     margin-top: 15px;
     margin-left: 15px;
-    display:flex;
+    display: flex;
     flex-wrap: wrap;
     justify-content: left;
     gap: 15px;
@@ -167,11 +184,13 @@ body::-webkit-scrollbar-thumb {
     animation: fadeIn 0.5s ease forwards;
     animation-delay: 1.5s;
 }
+
 /* ==== Card CSS ==== */
 .card {
     width: 300px;
     height: 250px;
-    perspective: 1000px; /* 3D perspective */
+    perspective: 1000px;
+    /* 3D perspective */
     margin: 10px;
     transition: all 0.5s ease;
 }
@@ -181,7 +200,8 @@ body::-webkit-scrollbar-thumb {
     width: 100%;
     height: 100%;
     transition: all 0.5s ease;
-    transform-style: preserve-3d; /* keep 3D effect */
+    transform-style: preserve-3d;
+    /* keep 3D effect */
 }
 
 .card:hover .flip-card-inner {
@@ -190,7 +210,8 @@ body::-webkit-scrollbar-thumb {
 
 .flip-card-front,
 .flip-card-back {
-    position: absolute; /* stack front/back */
+    position: absolute;
+    /* stack front/back */
     width: 100%;
     height: 100%;
     backface-visibility: hidden;
@@ -209,10 +230,13 @@ body::-webkit-scrollbar-thumb {
     font-size: 25px;
     padding-left: 15px;
     padding-right: 15px;
-    word-wrap: break-word;  /* wrap long words */
-    white-space: normal;    /* allow line breaks */
-    overflow-wrap: anywhere; /* handles really long unbroken text */
-    text-align: center; 
+    word-wrap: break-word;
+    /* wrap long words */
+    white-space: normal;
+    /* allow line breaks */
+    overflow-wrap: anywhere;
+    /* handles really long unbroken text */
+    text-align: center;
 }
 
 .flip-card-back {
@@ -223,28 +247,34 @@ body::-webkit-scrollbar-thumb {
     overflow-y: auto;
     transform: rotateY(180deg);
 }
+
 /* Chrome, Edge, Safari */
 .flip-card-back::-webkit-scrollbar {
-    width: 6px;               /* scrollbar width */
+    width: 6px;
+    /* scrollbar width */
 }
 
 .flip-card-back::-webkit-scrollbar-track {
-    background: #111;          /* track background */
+    background: #111;
+    /* track background */
     border-radius: 3px;
 }
 
 .flip-card-back::-webkit-scrollbar-thumb {
-    background-color: #ff00ff7d; /* thumb color */
+    background-color: #ff00ff7d;
+    /* thumb color */
     border-radius: 3px;
-    border: none;    /* subtle border to blend with card */
+    border: none;
+    /* subtle border to blend with card */
 }
 
-.info{
+.info {
     height: 100%;
     width: 100%;
     padding-top: 15px;
 }
-.year{
+
+.year {
     color: white;
     font-family: sans-serif;
     font-size: 25px;
@@ -252,8 +282,10 @@ body::-webkit-scrollbar-thumb {
     margin-top: 10px;
     display: inline;
 }
+
 .option-wrapper {
-    display: inline; /* keeps it inline like your card layout */
+    display: inline;
+    /* keeps it inline like your card layout */
     position: relative;
     float: right;
     margin-left: 8px;
@@ -278,7 +310,8 @@ body::-webkit-scrollbar-thumb {
     border: 1px solid #ff00ff5d;
     border-radius: 8px;
     position: absolute;
-    top: 100%; /* right below the summary */
+    top: 100%;
+    /* right below the summary */
     right: 8px;
     margin-top: 5px;
     z-index: 10;
@@ -296,37 +329,44 @@ body::-webkit-scrollbar-thumb {
 
 
 
-.episodes{
+.episodes {
     color: white;
     font-family: sans-serif;
     font-size: 16px;
     margin-left: 8px;
     margin-top: 5px;
 }
-.platform{
+
+.platform {
     color: #aaa;
     font-family: sans-serif;
     font-size: 14px;
     margin-left: 8px;
     margin-top: 5px;
 }
-.description{
+
+.description {
     color: white;
     font-family: sans-serif;
     font-size: 15px;
     padding-right: 8px;
     margin-left: 8px;
     margin-top: 15px;
-    word-wrap: break-word;  /* wrap long words */
-    white-space: normal;    /* allow line breaks */
-    overflow-wrap: anywhere; /* handles really long unbroken text */ 
+    word-wrap: break-word;
+    /* wrap long words */
+    white-space: normal;
+    /* allow line breaks */
+    overflow-wrap: anywhere;
+    /* handles really long unbroken text */
 }
+
 /* ==== search container ==== */
-.search-container{
+.search-container {
     display: flex;
     justify-content: center;
     margin-bottom: 15px;
 }
+
 /* ==== Textbox ==== */
 .textbox {
     background-color: rgba(255, 0, 255, 0.09);
@@ -354,7 +394,8 @@ body::-webkit-scrollbar-thumb {
     border-bottom-color: rgb(0, 0, 255);
     background-color: rgba(255, 0, 255, 0.05);
 }
-.gutter{
+
+.gutter {
     width: 100%;
     height: 50px;
 }

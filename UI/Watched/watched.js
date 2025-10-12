@@ -8,7 +8,7 @@ async function fetchwatchedlist() {
     try {
         const res = await fetch("http://127.0.0.1:5000/watchedlist");
         const data = await res.json();
-        
+
         if (data.status === "ok") {
             const container = document.querySelectorAll(".cards-container");
             const current_query = container[0]

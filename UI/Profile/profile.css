@@ -4,6 +4,7 @@
         opacity: 0;
         transform: translateY(20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -15,6 +16,7 @@
         opacity: 0;
         transform: translateY(20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -27,6 +29,7 @@ body {
     background-color: black;
     margin: 0;
 }
+
 /* ==== Main Container ==== */
 .main {
     background-color: #000000;
@@ -41,9 +44,11 @@ body {
     max-width: 600px;
     margin: auto;
 
-    opacity: 0; /* Start invisible */
+    opacity: 0;
+    /* Start invisible */
     animation: fadeIn 0.5s ease-out forwards;
-    animation-delay: 0.5s; /* After initial load */
+    animation-delay: 0.5s;
+    /* After initial load */
 }
 
 /* ==== menubar ==== */
@@ -52,12 +57,14 @@ body {
 .menucontainer {
     position: sticky;
     top: 0;
-    z-index: 999; /* Ensures it stays on top of other content */
+    z-index: 999;
+    /* Ensures it stays on top of other content */
     display: flex;
     width: 100%;
     justify-content: center;
     animation: fadeUp 0.5s ease forwards;
-    animation-delay: 0s; /* Same as menubar or adjust if needed */
+    animation-delay: 0s;
+    /* Same as menubar or adjust if needed */
 }
 
 .menubar {
@@ -104,10 +111,12 @@ body {
     transition: all 0.5s;
     border-bottom: 1px solid transparent;
 }
+
 .menubar:hover .menu-item-default {
     color: #ffffff7d;
     border-bottom-color: transparent;
 }
+
 .menu-item:hover {
     color: white;
     border-bottom-color: #ff00ff7d;
@@ -120,7 +129,8 @@ body {
 .menu-item-default:hover {
     color: #ffffff;
 }
-.heading{
+
+.heading {
     margin: 0px;
     margin-left: 15px;
     display: inline;
@@ -132,7 +142,8 @@ body {
     animation: fadeUp 0.5s ease forwards;
     animation-delay: 1s;
 }
-.edit-pref{
+
+.edit-pref {
     color: white;
     font-family: sans-serif;
     font-weight: bold;
@@ -152,10 +163,12 @@ body {
     animation: fadeUp 0.5s ease forwards;
     animation-delay: 1s;
 }
-.edit-pref:hover{
+
+.edit-pref:hover {
     background-color: #ff00ff7d;
 }
-.stat-holder{
+
+.stat-holder {
     background-color: #1111;
     border-radius: 15px;
     margin-top: 20px;
@@ -167,14 +180,15 @@ body {
     padding-bottom: 5px;
     justify-content: space-around;
     row-gap: 15px;
-    display:flex;
+    display: flex;
     flex-wrap: wrap;
     opacity: 0;
     animation: fadeUp 0.5s forwards;
     animation-delay: 1.5s;
 }
-.stat-card{
-    border: 1px solid #aaa ;
+
+.stat-card {
+    border: 1px solid #aaa;
     background-color: #111;
     border-radius: 15px;
     padding-top: 15px;
@@ -185,13 +199,15 @@ body {
     animation: fadeUp 0.5s forwards;
     animation-delay: 2s;
 }
-.stat-card:hover{
+
+.stat-card:hover {
     background-color: #222;
     border: 1px solid #ff00ff7d;
     transform: scale(1.02);
     will-change: transform, opacity;
 }
-.stat-label{
+
+.stat-label {
     color: #fff;
     display: inline;
     font-family: sans-serif;
@@ -200,7 +216,8 @@ body {
     display: block;
     margin-top: 0px;
 }
-.status{
+
+.status {
     color: #ffffff;
     font-family: sans-serif;
     font-size: 18px;
@@ -210,7 +227,8 @@ body {
     text-align: left;
     margin-top: 10px;
 }
-.next-status{
+
+.next-status {
     border: 1px solid #aaa;
     height: 20px;
     border-radius: 15px;
@@ -218,7 +236,8 @@ body {
     margin-left: 15px;
     margin-right: 15px;
 }
-.next-achievement{
+
+.next-achievement {
     color: white;
     font-family: sans-serif;
     font-size: 15px;
@@ -226,7 +245,8 @@ body {
     float: left;
     margin-left: 8px;
 }
-.progress{
+
+.progress {
     color: white;
     font-family: sans-serif;
     font-size: 15px;
@@ -234,13 +254,15 @@ body {
     float: right;
     margin-right: 8px;
 }
-.progress-bar{
+
+.progress-bar {
     height: 100%;
     background: linear-gradient(90deg, #ffd700, #ff00ff7d);
     border-radius: 8px;
     transition: 0.5s;
 }
-.stat-number{
+
+.stat-number {
     color: #fff;
     text-align: center;
     font-family: sans-serif;
@@ -248,31 +270,37 @@ body {
     font-size: 90px;
     margin-top: 0px;
 }
+
 .tag-container {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
     justify-content: center;
 }
+
 .tag {
     background-color: #555;
-    color: #ffffff; /* gold */
+    color: #ffffff;
+    /* gold */
     padding: 6px 14px;
     border-radius: 20px;
     font-size: 15px;
     font-family: sans-serif;
     transition: 0.5s;
 }
+
 .tag:hover {
     background-color: #000;
 }
+
 .actor-list {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 5px;
 }
-.actor{
+
+.actor {
     color: white;
     background-color: #555;
     border-radius: 10px;
@@ -282,18 +310,20 @@ body {
     padding-bottom: 5px;
     transition: 0.5s;
 }
-.actor:hover{
+
+.actor:hover {
     background-color: #000;
 }
 
-.export-import-div{
+.export-import-div {
     padding-bottom: 15px;
     padding-top: 15px;
     display: flex;
     justify-content: center;
     column-gap: 20px;
 }
-.buttons{
+
+.buttons {
     color: white;
     border: 1px solid #ff00ff7d;
     border-radius: 10px;
@@ -310,9 +340,11 @@ body {
     animation: fadeUp 0.5s forwards;
     animation-delay: 2.5s;
 }
-.buttons:hover{
+
+.buttons:hover {
     background-color: #ff00ff7d;
 }
-.stat-card1{
+
+.stat-card1 {
     color: white;
 }

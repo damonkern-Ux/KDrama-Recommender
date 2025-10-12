@@ -50,7 +50,6 @@ GENRE_GROUPS = {
 }
 
 
-
 def tags_getter(drama_seen):
     connection = mysql.connect(host="localhost", user="root", password="system")
     cursor = connection.cursor()

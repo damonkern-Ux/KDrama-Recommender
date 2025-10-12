@@ -58,7 +58,7 @@ function fetchwatchedcard(data) {
         <h1 class="stat-number">${data.watched.wish}</h1>`;
     current_query.appendChild(card3);
 
-        const card4 = document.createElement("div");
+    const card4 = document.createElement("div");
     card4.classList.add("stat-card");
     // fetch data from local storage
     card4.innerHTML = `

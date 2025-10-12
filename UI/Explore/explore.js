@@ -5,29 +5,29 @@ window.addEventListener("DOMContentLoaded", () => {
     fetchredommended();
     fetchwatchlist();
     document.addEventListener("click", async (e) => {
-  if (e.target.closest(".dropdown-menu div")) {
-    const option = e.target.closest(".dropdown-menu div");
-    const cardInner = option.closest(".flip-card-inner");
-    const title = cardInner.querySelector(".flip-card-front").textContent.trim();
-    const action = option.textContent.trim();
+        if (e.target.closest(".dropdown-menu div")) {
+            const option = e.target.closest(".dropdown-menu div");
+            const cardInner = option.closest(".flip-card-inner");
+            const title = cardInner.querySelector(".flip-card-front").textContent.trim();
+            const action = option.textContent.trim();
 
-    try {
-      const response = await fetch("http://127.0.0.1:5000/update-drama", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ title, action })
-      });
+            try {
+                const response = await fetch("http://127.0.0.1:5000/update-drama", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ title, action })
+                });
 
-      if (response.ok) {
-        console.log(`Success: ${title} -> ${action}`);
-      } else {
-        console.error("Server said nope:", response.status);
-      }
-    } catch (err) {
-      console.error("Network meltdown:", err);
-    }
-  }
-});
+                if (response.ok) {
+                    console.log(`Success: ${title} -> ${action}`);
+                } else {
+                    console.error("Server said nope:", response.status);
+                }
+            } catch (err) {
+                console.error("Network meltdown:", err);
+            }
+        }
+    });
 
 });
 // trending
@@ -78,7 +78,7 @@ async function fetchredommended() {
     try {
         const res = await fetch("http://127.0.0.1:5000/recommendations");
         const data = await res.json();
-        
+
         if (data.status === "ok") {
             const container = document.querySelectorAll(".cards-container");
             const current_query = container[2]
@@ -122,7 +122,7 @@ async function fetchwatchlist() {
     try {
         const res = await fetch("http://127.0.0.1:5000/watchlistexplore");
         const data = await res.json();
-        
+
         if (data.status === "ok") {
             const container = document.querySelectorAll(".cards-container");
             const current_query = container[1]

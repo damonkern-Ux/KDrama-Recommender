@@ -1,31 +1,33 @@
 <html>
-  <head>
-    <title>Explore</title>
-    <script src="explore.js" defer></script>
-    <link rel="stylesheet" type="text/css" href="explore.css">
-  </head>
-  <body>
-    <div class="menucontainer">
-      <div class="menubar">
-        <div class="menu-item" onclick="window.location.href='../Profile/profile.html'">Profile</div>
-        <div class="menu-item" onclick="window.location.href='../Wish/wishlist.html'">Wish List</div>
-        <div class="menu-item" onclick="window.location.href='../Watched/watched.html'">Watched</div>
-        <div class="menu-item" onclick="window.location.href='../WatchList/watchlist.html'">Watch List</div>
-        <div class="menu-item" onclick="window.location.href='../Search/search.html'">Search</div>
-        <div class="menu-item-default" onclick="window.location.href=''">Explore</div>
+
+<head>
+  <title>Explore</title>
+  <script src="explore.js" defer></script>
+  <link rel="stylesheet" type="text/css" href="explore.css">
+</head>
+
+<body>
+  <div class="menucontainer">
+    <div class="menubar">
+      <div class="menu-item" onclick="window.location.href='../Profile/profile.html'">Profile</div>
+      <div class="menu-item" onclick="window.location.href='../Wish/wishlist.html'">Wish List</div>
+      <div class="menu-item" onclick="window.location.href='../Watched/watched.html'">Watched</div>
+      <div class="menu-item" onclick="window.location.href='../WatchList/watchlist.html'">Watch List</div>
+      <div class="menu-item" onclick="window.location.href='../Search/search.html'">Search</div>
+      <div class="menu-item-default" onclick="window.location.href=''">Explore</div>
+    </div>
+  </div>
+
+  <div class="category">
+    <h1 class="heading">Trending</h1>
+    <div class="cards-container">
+      <div class="card">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">Loading</div>
+          <div class="flip-card-back"></div>
+        </div>
       </div>
     </div>
-    
-    <div class="category">
-      <h1 class="heading">Trending</h1>
-      <div class="cards-container">
-        <div class="card">
-          <div class="flip-card-inner">
-            <div class="flip-card-front">Loading</div>
-            <div class="flip-card-back"></div>
-          </div>
-        </div>
-      </div> 
     <div class="category">
       <h1 class="heading">Watch List</h1>
       <div class="cards-container">
@@ -49,5 +51,6 @@
       </div>
     </div>
     <div class="gutter"></div>
-  </body>
+</body>
+
 </html>

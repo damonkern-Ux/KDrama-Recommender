@@ -63,8 +63,10 @@ def wish_list():
         description = data.get("description")
         if description is None:
             description = "Description Not Available."
-        try:time = data.get("datePublished").split("-")[0]
-        except: time = "Time Not Available."
+        try:
+            time = data.get("datePublished").split("-")[0]
+        except:
+            time = "Time Not Available."
         info = (
             normalize_title(drama[0]),
             time,
@@ -90,9 +92,9 @@ def watch_list():
         )
         data = cursor.fetchall()[0]
         if data:
-            listed.append([data[0],data[1],data[2],data[3]])
+            listed.append([data[0], data[1], data[2], data[3]])
         else:
-            listed.append([drama[0],"Not Available","Not Available","Not Available"])
+            listed.append([drama[0], "Not Available", "Not Available", "Not Available"])
     cursor.close()
     connection.close()
     return listed
@@ -112,11 +114,11 @@ def watch_listexplore():
             values,
         )
         data = cursor.fetchall()[0]
-        count+=1
+        count += 1
         if data:
-            listed.append([data[0],data[1],data[2],data[3]])
+            listed.append([data[0], data[1], data[2], data[3]])
         else:
-            listed.append([drama[0],"Not Available","Not Available","Not Available"])
+            listed.append([drama[0], "Not Available", "Not Available", "Not Available"])
         if count == 5:
             break
     cursor.close()
@@ -153,7 +155,10 @@ def database_updator(drama_name, action):
     connection = mysql.connect(host="localhost", user="root", password="system")
     cursor = connection.cursor()
     cursor.execute("USE dramas;")
-    cursor.execute("SELECT drama_name, category FROM user_table WHERE LOWER(drama_name) LIKE %s;",(f"%{drama_name.lower()}%",))
+    cursor.execute(
+        "SELECT drama_name, category FROM user_table WHERE LOWER(drama_name) LIKE %s;",
+        (f"%{drama_name.lower()}%",),
+    )
     data = cursor.fetchall()
     print(data)
     actions_dictionary = {
@@ -164,18 +169,50 @@ def database_updator(drama_name, action):
         "remove from wishlist": 301,
     }
     action_id = actions_dictionary[action.lower()]
-    print(drama_name,action_id)
+    print(drama_name, action_id)
     if data:
-        if action_id == 101: cursor.execute("UPDATE user_table SET category = 'watch' WHERE LOWER(drama_name) LIKE %s;",(f"%{drama_name.lower()}%",))
-        elif action_id == 102: cursor.execute("UPDATE user_table SET category = 'watched' WHERE LOWER(drama_name) LIKE %s;",(f"%{drama_name.lower()}%",))
-        elif action_id == 103: cursor.execute("UPDATE user_table SET category = 'wish' WHERE LOWER(drama_name) LIKE %s;",(f"%{drama_name.lower()}%",))
-        elif action_id == 201: cursor.execute("DELETE FROM user_table WHERE LOWER(drama_name) LIKE %s;",(f"%{drama_name.lower()}%",))
-        elif action_id == 301: cursor.execute("DELETE FROM user_table WHERE LOWER(drama_name) LIKE %s;",(f"%{drama_name.lower()}%",))
+        if action_id == 101:
+            cursor.execute(
+                "UPDATE user_table SET category = 'watch' WHERE LOWER(drama_name) LIKE %s;",
+                (f"%{drama_name.lower()}%",),
+            )
+        elif action_id == 102:
+            cursor.execute(
+                "UPDATE user_table SET category = 'watched' WHERE LOWER(drama_name) LIKE %s;",
+                (f"%{drama_name.lower()}%",),
+            )
+        elif action_id == 103:
+            cursor.execute(
+                "UPDATE user_table SET category = 'wish' WHERE LOWER(drama_name) LIKE %s;",
+                (f"%{drama_name.lower()}%",),
+            )
+        elif action_id == 201:
+            cursor.execute(
+                "DELETE FROM user_table WHERE LOWER(drama_name) LIKE %s;",
+                (f"%{drama_name.lower()}%",),
+            )
+        elif action_id == 301:
+            cursor.execute(
+                "DELETE FROM user_table WHERE LOWER(drama_name) LIKE %s;",
+                (f"%{drama_name.lower()}%",),
+            )
 
     else:
-        if action_id == 101: cursor.execute("INSERT INTO user_table(drama_name, category) VALUES(%s,'watch');",(f"{drama_name.lower()}",))
-        elif action_id == 102: cursor.execute("INSERT INTO user_table(drama_name, category) VALUES(%s,'watched');",(f"{drama_name.lower()}",))
-        elif action_id == 103: cursor.execute("INSERT INTO user_table(drama_name, category) VALUES(%s,'wish');",(f"{drama_name.lower()}",))
+        if action_id == 101:
+            cursor.execute(
+                "INSERT INTO user_table(drama_name, category) VALUES(%s,'watch');",
+                (f"{drama_name.lower()}",),
+            )
+        elif action_id == 102:
+            cursor.execute(
+                "INSERT INTO user_table(drama_name, category) VALUES(%s,'watched');",
+                (f"{drama_name.lower()}",),
+            )
+        elif action_id == 103:
+            cursor.execute(
+                "INSERT INTO user_table(drama_name, category) VALUES(%s,'wish');",
+                (f"{drama_name.lower()}",),
+            )
     connection.commit()
     cursor.close()
     connection.close()
@@ -186,7 +223,10 @@ def search(drama_name):
     connection = mysql.connect(host="localhost", user="root", password="system")
     cursor = connection.cursor()
     cursor.execute("USE dramas;")
-    cursor.execute("SELECT * FROM drama_table WHERE LOWER(drama_name) LIKE %s;",(f"%{drama_name}%",))
+    cursor.execute(
+        "SELECT * FROM drama_table WHERE LOWER(drama_name) LIKE %s;",
+        (f"%{drama_name}%",),
+    )
     listed = []
     for drama in cursor.fetchall():
         name = drama[0]

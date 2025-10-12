@@ -89,10 +89,9 @@ def get_watchlist():
             return jsonify({"status": "fail", "message": "Nothing in Watch List"}), 404
         watch_list = []
         for t in watchlist:
-            watch_list.append({"title": t[0],
-                                "year": t[1],
-                                "episode": t[2],
-                                "description": t[3]})
+            watch_list.append(
+                {"title": t[0], "year": t[1], "episode": t[2], "description": t[3]}
+            )
         print(watch_list)
         return jsonify({"status": "ok", "watchlist": watch_list})
     except Exception as e:
@@ -108,10 +107,9 @@ def get_watchlistexplore():
             return jsonify({"status": "fail", "message": "Nothing in Watch List"}), 404
         watch_list = []
         for t in watchlist:
-            watch_list.append({"title": t[0],
-                                "year": t[1],
-                                "episode": t[2],
-                                "description": t[3]})
+            watch_list.append(
+                {"title": t[0], "year": t[1], "episode": t[2], "description": t[3]}
+            )
         return jsonify({"status": "ok", "watchlist": watch_list})
     except Exception as e:
         return (
@@ -206,7 +204,9 @@ def search():
                 "title": drama[0],
                 "year": drama[1],
                 "episodes": drama[2],
-                "platform": str(str(str(drama[3]).replace('"','')).replace('[','')).replace(']',''),
+                "platform": str(
+                    str(str(drama[3]).replace('"', "")).replace("[", "")
+                ).replace("]", ""),
                 "description": drama[4],
             }
         )

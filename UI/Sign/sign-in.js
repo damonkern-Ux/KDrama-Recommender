@@ -1,4 +1,4 @@
-document.querySelector(".button1").addEventListener("click", function() {
+document.querySelector(".button1").addEventListener("click", function () {
     const username = document.querySelector(".textbox[type='text']").value;
     const password = document.querySelector(".textbox[type='password']").value;
 
@@ -10,18 +10,18 @@ document.querySelector(".button1").addEventListener("click", function() {
         },
         body: JSON.stringify({ username, password })
     })
-    .then((res) => res.json())
-    .then((data) => {
-        if (data.status === "ok") {
-        alert("Login successful!");
-        window.location.href = "../Explore/explore.html"; // redirect after success
-        } 
-        else {
-        alert("Login failed: " + data.message);
-        }
-    })
-    .catch(err => {
-        console.error("Error:", err);
-        alert("Server might not be running. Check console.");
-    });
+        .then((res) => res.json())
+        .then((data) => {
+            if (data.status === "ok") {
+                alert("Login successful!");
+                window.location.href = "../Explore/explore.html"; // redirect after success
+            }
+            else {
+                alert("Login failed: " + data.message);
+            }
+        })
+        .catch(err => {
+            console.error("Error:", err);
+            alert("Server might not be running. Check console.");
+        });
 });

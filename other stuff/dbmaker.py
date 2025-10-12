@@ -149,7 +149,7 @@ INSERT IGNORE INTO Drama_Table (
     connection.close()
 
 
-os.system("cls" if os.name == 'nt' else 'clear')
+os.system("cls" if os.name == "nt" else "clear")
 
 
 def data_grabber():
@@ -204,13 +204,33 @@ INSERT IGNORE INTO Drama_Table (
     with open(path, "r", newline="", encoding="utf-8") as file:
         reader_obj = csv.reader(file, quotechar='"', doublequote=True)
         for row in reader_obj:
-            Drama_Name,Year,Episodes_Number,Description,Cast,Tags,Rating,Platform = row
-            if Platform == '': Platform = json.dumps('None')
-            row = (Drama_Name,Year,Episodes_Number,Description,Cast,Tags,Rating,Platform)
+            (
+                Drama_Name,
+                Year,
+                Episodes_Number,
+                Description,
+                Cast,
+                Tags,
+                Rating,
+                Platform,
+            ) = row
+            if Platform == "":
+                Platform = json.dumps("None")
+            row = (
+                Drama_Name,
+                Year,
+                Episodes_Number,
+                Description,
+                Cast,
+                Tags,
+                Rating,
+                Platform,
+            )
             cursor.execute(query, row)
             connection.commit()
     cursor.close()
     connection.close()
+
 
 def ratings_to_sql():
     connection = mysql.connect(
@@ -218,12 +238,12 @@ def ratings_to_sql():
     )
     cursor = connection.cursor()
     cursor.execute("USE dramas;")
-    with open('other stuff/ratings.csv','r') as file:
+    with open("other stuff/ratings.csv", "r") as file:
         listed = []
         reader_obj = csv.reader(file)
         for record in reader_obj:
-            name,rating = record[0],float(record[1])
-            rating = round(rating*4,2)
+            name, rating = record[0], float(record[1])
+            rating = round(rating * 4, 2)
             rating = round((math.log(rating + 1) / math.log(31)) * 9 + 1, 2)
             listed.append((name, rating))
     # Step 2: Sort ratings for percentile ranking
@@ -231,8 +251,8 @@ def ratings_to_sql():
     n = len(sorted_ratings)
     # Step 3: Assign percentile-based score and update DB
     for name, rating in listed:
-        percentile = sorted_ratings.index(rating) / (n - 1)   # 0 → min, 1 → max
-        new_rating = round(percentile * 9 + 1, 2)             # scale to 1–10
+        percentile = sorted_ratings.index(rating) / (n - 1)  # 0 → min, 1 → max
+        new_rating = round(percentile * 9 + 1, 2)  # scale to 1–10
         print(name, rating)
         query = "UPDATE drama_table SET rating = %s WHERE drama_name LIKE %s;"
         cursor.execute(query, (new_rating, f"%{name}%"))

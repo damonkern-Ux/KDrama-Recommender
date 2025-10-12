@@ -4,6 +4,7 @@
         opacity: 0;
         transform: translateY(20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -15,6 +16,7 @@
         opacity: 0;
         transform: translateY(20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -51,7 +53,8 @@ body {
 }
 
 .button1:hover {
-    opacity: 0.7; /* corrected decimal */
+    opacity: 0.7;
+    /* corrected decimal */
 }
 
 .button1:active {
@@ -72,9 +75,11 @@ body {
     max-width: 600px;
     margin: auto;
 
-    opacity: 0; /* Start invisible */
+    opacity: 0;
+    /* Start invisible */
     animation: fadeIn 0.5s ease-out forwards;
-    animation-delay: 0.5s; /* After initial load */
+    animation-delay: 0.5s;
+    /* After initial load */
 }
 
 /* ==== menubar ==== */
@@ -83,12 +88,14 @@ body {
 .menucontainer {
     position: sticky;
     top: 0;
-    z-index: 999; /* Ensures it stays on top of other content */
+    z-index: 999;
+    /* Ensures it stays on top of other content */
     display: flex;
     width: 100%;
     justify-content: center;
     animation: fadeUp 0.5s ease forwards;
-    animation-delay: 0s; /* Same as menubar or adjust if needed */
+    animation-delay: 0s;
+    /* Same as menubar or adjust if needed */
 }
 
 .menubar {
@@ -135,10 +142,12 @@ body {
     transition: all 0.5s;
     border-bottom: 1px solid transparent;
 }
+
 .menubar:hover .menu-item-default {
     color: #ffffff7d;
     border-bottom-color: transparent;
 }
+
 .menu-item:hover {
     color: white;
     border-bottom-color: #ff00ff7d;
@@ -151,6 +160,7 @@ body {
 .menu-item-default:hover {
     color: #ffffff;
 }
+
 /* ==== Heading ==== */
 .heading {
     background-color: #000000;
@@ -202,7 +212,7 @@ body {
 }
 
 /* When .up is hovered, .dw background changes */
-.dw:hover ~ .up {
+.dw:hover~.up {
     background-color: #000000;
 }
 
