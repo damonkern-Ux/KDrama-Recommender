@@ -148,7 +148,6 @@ def profile():
 
 
 def database_updator(drama_name, action):
-    print(drama_name)
     if drama_name.lower() == "search something":
         return "Nothing"
     drama_name = normalize_title(drama_name)
@@ -160,7 +159,6 @@ def database_updator(drama_name, action):
         (f"%{drama_name.lower()}%",),
     )
     data = cursor.fetchall()
-    print(data)
     actions_dictionary = {
         "add to watchlist": 101,
         "mark as watched": 102,
@@ -169,7 +167,6 @@ def database_updator(drama_name, action):
         "remove from wishlist": 301,
     }
     action_id = actions_dictionary[action.lower()]
-    print(drama_name, action_id)
     if data:
         if action_id == 101:
             cursor.execute(
