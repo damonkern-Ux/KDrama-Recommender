@@ -3,12 +3,12 @@ from bs4 import BeautifulSoup
 import re
 import mysql.connector as mysql
 
-connection = mysql.connect(host="localhost", user="root", password="system")
-cursor = connection.cursor()
-cursor.execute("USE dramas;")
 
 
 def trending():
+    connection = mysql.connect(host="localhost", user="root", password="system")
+    cursor = connection.cursor()
+    cursor.execute("USE dramas;")
     HEADERS = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
         "AppleWebKit/537.36 (KHTML, like Gecko) "
@@ -43,7 +43,7 @@ def trending():
         info = cursor.fetchall()
         if info:
             return_list.append(info[0])
+    
+    cursor.close()
+    connection.close()
     return return_list[:5]
-
-cursor.close()
-connection.close()

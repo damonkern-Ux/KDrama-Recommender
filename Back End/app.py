@@ -3,11 +3,12 @@ from flask_cors import CORS
 from trending_get import trending
 from main_recommender import recommender
 import combined_functions
+import os
 
 app = Flask(__name__)
 CORS(app)
 
-
+os.system("open './UI/Sign/sign-in.html'")
 # login route
 @app.route("/login", methods=["POST"])
 def login():

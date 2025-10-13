@@ -45,16 +45,16 @@ async function fetchwatchlist() {
             <div class="flip-card-front">${drama.title}</div>
             <div class="flip-card-back">
             <div class="info">
-                <div class="year">${drama.year}</div>
+            <details class="option-wrapper">
+            <summary class="option">Add</summary>
+            <div class="dropdown-menu">
+            <div>Remove from Watchlist</div>
+            <div>Mark as Watched</div>
+            <div>Mark as Wish</div>
+            </div>
+            </details>
+            <div class="year">${drama.year}</div>
                 <div class="episodes">Episodes :${drama.episode}</div>
-                <details class="option-wrapper">
-                <summary class="option">Add</summary>
-                <div class="dropdown-menu">
-                    <div>Remove from Watchlist</div>
-                    <div>Mark as Watched</div>
-                    <div>Mark as Wish</div>
-                </div>
-                </details>
                 <div class="description">${drama.description}</div>
             </div>
             </div>
