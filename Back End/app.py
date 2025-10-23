@@ -13,7 +13,7 @@ os.system("open './UI/Sign/sign-in.html'")
 @app.route("/login", methods=["POST"])
 def login():
     # Basic user. For testing purposes.
-    valid_user = {"username": "A", "password": "iamademon"}
+    valid_user = {"username": "Jeong Gu Won", "password": "iamademon"}
     data = request.json
     username = data.get("username")
     password = data.get("password")
