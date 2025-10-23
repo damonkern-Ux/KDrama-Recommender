@@ -150,7 +150,6 @@ def profile():
 def database_updator(drama_name, action):
     if drama_name.lower() == "search something":
         return "Nothing"
-    drama_name = normalize_title(drama_name)
     connection = mysql.connect(host="localhost", user="root", password="system")
     cursor = connection.cursor()
     cursor.execute("USE dramas;")

@@ -8,7 +8,7 @@ import os
 app = Flask(__name__)
 CORS(app)
 
-os.system("open './UI/Sign/sign-in.html'")
+#os.system("open './UI/Sign/sign-in.html'")
 # login route
 @app.route("/login", methods=["POST"])
 def login():
