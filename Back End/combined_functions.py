@@ -1,8 +1,10 @@
+import os
 import mysql.connector as mysql
 import re
 import json
 import unicodedata
 import PyMovieDb
+import datetime
 
 
 def normalize_title(s):
@@ -45,7 +47,10 @@ def watched_list():
             "SELECT drama_name,year,episodes_number FROM drama_table WHERE LOWER(drama_name) LIKE %s;",
             values,
         )
-        elements = cursor.fetchall()[0]
+        try :
+            elements = cursor.fetchall()[0]
+        except:
+            elements = [drama[0],'Not present in DB','Not present in DB']
         listed.append((elements[0], elements[1], elements[2], time))
     cursor.close()
     connection.close()
@@ -234,3 +239,8 @@ def search(drama_name):
     cursor.close()
     connection.close()
     return listed
+
+def feedback(name,year):
+    with open("../addition requests.txt",'a') as file:
+        print(os.getcwd())
+        file.write(f"{name} - {year} - {datetime.datetime.now()}")

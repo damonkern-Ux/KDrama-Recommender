@@ -34,8 +34,8 @@ window.addEventListener("DOMContentLoaded", () => {
 async function fetchtrending() {
     try {
         const res = await fetch("http://127.0.0.1:5000/trending");
-        // alert('xffg');
         const data = await res.json();
+
         if (data.status === "ok") {
             const container = document.querySelectorAll(".cards-container");
             const current_query = container[0]
@@ -65,8 +65,14 @@ async function fetchtrending() {
         </div>`;
                 current_query.appendChild(card);
             });
-        } else {
-            alert(data.message || "No trending dramas found.");
+        }
+        else {
+            if (data.status === "nologin"){
+                window.location.href = "../Sign/sign-in.html";
+            }
+            else{
+                console.log("Something Went Wrong 1");
+            }
         }
     } catch (err) {
         console.error("Error fetching trending:", err);
@@ -83,7 +89,6 @@ async function fetchredommended() {
             const container = document.querySelectorAll(".cards-container");
             const current_query = container[2]
             current_query.innerHTML = ""; // Clear old cards
-            // alert('xffg');
             data.recommendations.forEach(drama => {
                 const card = document.createElement("div");
                 card.classList.add("card");
@@ -109,8 +114,14 @@ async function fetchredommended() {
         </div>`;
                 current_query.appendChild(card);
             });
-        } else {
-            alert(data.message || "No trending dramas found.");
+        }
+        else {
+            if (data.status === "nologin"){
+                window.location.href = "../Sign/sign-in.html";
+            }
+            else{
+                console.log("Something Went Wrong 1");
+            }
         }
     } catch (err) {
         console.error("Error fetching recommendations:", err);
@@ -127,7 +138,6 @@ async function fetchwatchlist() {
             const container = document.querySelectorAll(".cards-container");
             const current_query = container[1]
             current_query.innerHTML = ""; // Clear old cards
-            // alert('xffg');
             data.watchlist.forEach(drama => {
                 const card = document.createElement("div");
                 card.classList.add("card");
@@ -152,11 +162,17 @@ async function fetchwatchlist() {
         </div>`;
                 current_query.appendChild(card);
             });
-        } else {
-            alert(data.message || "No trending dramas found.");
+        } 
+        else {
+            if (data.status === "nologin"){
+                window.location.href = "../Sign/sign-in.html";
+            }
+            else{
+                console.log("Something Went Wrong 1");
+            }
         }
     } catch (err) {
-        console.error("Error fetching recommendations:", err);
-        alert("Error fetching recommendations:", err)
+        console.error("Error fetching watchlist:", err);
+        alert("Error fetching watchlist:", err)
     }
 }

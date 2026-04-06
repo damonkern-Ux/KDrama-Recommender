@@ -35,7 +35,6 @@ body {
     background-color: #000000;
     border: 1px solid rgba(255, 0, 255, 0.3);
     border-radius: 25px;
-    box-shadow: 0 1px 15px rgba(255, 0, 255, 0.49);
     padding: 3% 5%;
     display: flex;
     flex-direction: column;
@@ -69,18 +68,16 @@ body {
 
 .menubar {
     background-color: black;
-    border-radius: 15px;
     border-style: none;
     border-color: black;
-    box-shadow: 0 1px 15px rgba(255, 0, 255, 0.49);
     width: 100%;
-    margin: 0 0 5% 0;
+    margin-top: 15px;
+    margin-bottom: 45px;
     padding: 3px 0;
     height: auto;
     display: inline-flex;
     flex-direction: row-reverse;
     justify-content: center;
-
     animation: fadeUp 0.5s ease forwards;
     animation-delay: 0s;
 }
@@ -143,16 +140,13 @@ body {
     animation-delay: 1s;
 }
 
-.edit-pref {
+.edit-pref , .submit-button{
     color: white;
     font-family: sans-serif;
     font-weight: bold;
     border: 1px solid #ff00ff;
     border-radius: 10px;
     background-color: #ff00ff3d;
-    display: inline;
-    float: right;
-    margin-right: 20px;
     padding-left: 15px;
     padding-top: 10px;
     padding-right: 15px;
@@ -163,9 +157,18 @@ body {
     animation: fadeUp 0.5s ease forwards;
     animation-delay: 1s;
 }
-
-.edit-pref:hover {
+.edit-pref{
+    float: right;
+    margin-right: 20px;
+    display: inline;
+}
+.submit-button{
+    margin-top: 10px;
+    margin: 10px;
+}
+.edit-pref:hover, .submit-button:hover {
     background-color: #ff00ff7d;
+    cursor: pointer;
 }
 
 .stat-holder {
@@ -178,7 +181,7 @@ body {
     padding-right: 5px;
     padding-top: 5px;
     padding-bottom: 5px;
-    justify-content: space-around;
+    justify-content: space-evenly;
     row-gap: 15px;
     display: flex;
     flex-wrap: wrap;
@@ -257,8 +260,8 @@ body {
 
 .progress-bar {
     height: 100%;
-    background: linear-gradient(90deg, #ffd700, #ff00ff7d);
-    border-radius: 8px;
+    background: linear-gradient(90deg, #440000, #ff00ff7d);
+    border-radius: 10px;
     transition: 0.5s;
 }
 
@@ -347,4 +350,35 @@ body {
 
 .stat-card1 {
     color: white;
+}
+.container{
+    width: 100%;
+    display: grid;
+}
+.dramabox,.dramabox-year{
+    background-color: #000;
+    backdrop-filter: blur(10px);
+    color: #ffffff;
+    font-family: sans-serif;
+    font-size: small;
+    font-size: 1rem;
+    font-weight: lighter;
+    padding: 8px 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 5px;
+    border: none;
+    border-bottom: 2px solid rgba(255, 0, 255, 0.7);
+    border-radius: 5px 5px 0 0;
+    /* width: fit-content; */
+    max-width: 350px;
+    animation: fadeIn 0.5s ease forwards;
+    opacity: 0;
+    animation-delay: 1.5s;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+.dramabox:focus, .dramabox-year:focus {
+    outline: none;
+    border-bottom-color: rgb(0, 0, 255);
+    background-color: rgba(255, 255, 255, 0.05);
 }

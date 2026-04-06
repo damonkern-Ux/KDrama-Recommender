@@ -4,7 +4,6 @@ import re
 import mysql.connector as mysql
 
 
-
 def trending():
     connection = mysql.connect(host="localhost", user="root", password="system")
     cursor = connection.cursor()
@@ -43,7 +42,7 @@ def trending():
         info = cursor.fetchall()
         if info:
             return_list.append(info[0])
-    
+
     cursor.close()
     connection.close()
     return return_list[:5]

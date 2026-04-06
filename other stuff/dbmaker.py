@@ -259,3 +259,5 @@ def ratings_to_sql():
     connection.commit()
     cursor.close()
     connection.close()
+
+table_maker()

@@ -47,7 +47,11 @@ searchBox.addEventListener('keypress', async (e) => {
     const data = await response.json();
     console.log('Response from server:', data);
 
-    if (data.status === 'ok' && Array.isArray(data.search)) {
+    if (data.status === 'ok' && Array.isArray(data.search) && data.search.length > 0) {
+      const length_content = data.search.length;
+      const result_container = document.querySelector('.heading');
+      result_container.innerHTML = 'Results : '+length_content+" found.";
+      
       const container = document.querySelector('.cards-container');
       container.innerHTML = ''; // clear old cards
 
@@ -77,7 +81,18 @@ searchBox.addEventListener('keypress', async (e) => {
         container.appendChild(card);
       });
     } else {
-      alert(data.message || 'No dramas found.');
+      const result_container = document.querySelector('.heading');
+      result_container.innerHTML = 'Results';
+
+      const container = document.querySelector('.cards-container');
+      container.innerHTML = ''; // clear old cards
+      container.innerHTML=
+      `
+      <div class="flip-card-inner">
+        <div class="flip-card-front">No Drama Found.</div>
+        <div class="flip-card-back">No Drama has the searched sequence of charecters. Search Again.</div>
+      </div>
+        `
     }
   } catch (err) {
     console.error('Search failed:', err);

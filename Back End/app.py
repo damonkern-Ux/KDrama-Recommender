@@ -3,23 +3,30 @@ from flask_cors import CORS
 from trending_get import trending
 from main_recommender import recommender
 import combined_functions
-import os
 
 app = Flask(__name__)
 CORS(app)
 
-#os.system("open './UI/Sign/sign-in.html'")
+# os.system("open './UI/Sign/sign-in.html'")
 # login route
+username = ""
+
+
 @app.route("/login", methods=["POST"])
 def login():
     # Basic user. For testing purposes.
-    valid_user = {"username": "Jeong Gu Won", "password": "iamademon"}
+    valid_user = {
+        "Jeong Gu Won": "iamademon",
+        "Park Shin Hye": "demonjudge",
+        "Kim Yoo Jung": "dodohee",
+    }
     data = request.json
+    global username
     username = data.get("username")
     password = data.get("password")
 
-    if username == valid_user["username"] and password == valid_user["password"]:
-        return jsonify({"status": "ok", "message": "Login successful!"})
+    if password == valid_user[username]:
+        return jsonify({"status": "ok", "message": "Login successful!"}), 200
     else:
         return jsonify({"status": "fail", "message": "Invalid credentials"}), 401
 
@@ -28,6 +35,8 @@ def login():
 @app.route("/trending", methods=["GET"])
 def get_trending():
     # the trending info getter.
+    # if username == "":
+    #     return (jsonify({"status": "fail", "message": "No Login"}), 500)
     try:
         trends = trending()
     except Exception as e:
@@ -56,6 +65,8 @@ def get_trending():
 # recommendations route
 @app.route("/recommendations", methods=["GET"])
 def get_recommendations():
+    if username == "":
+        return (jsonify({"status": "fail", "message": "No Login"}), 500)
     try:
         recommendation = recommender()
         if not recommendation:
@@ -84,6 +95,8 @@ def get_recommendations():
 # watch-list route
 @app.route("/watchlist", methods=["GET"])
 def get_watchlist():
+    if username == "":
+        return (jsonify({"status": "fail", "message": "No Login"}), 500)
     try:
         watchlist = combined_functions.watch_list()
         if not watchlist:
@@ -101,6 +114,8 @@ def get_watchlist():
 # watch-list route
 @app.route("/watchlistexplore", methods=["GET"])
 def get_watchlistexplore():
+    if username == "":
+        return jsonify({"status": "nologin", "watchlist": []})
     try:
         watchlist = combined_functions.watch_listexplore()
         if not watchlist:
@@ -121,6 +136,8 @@ def get_watchlistexplore():
 # watched-list route
 @app.route("/watchedlist", methods=["GET"])
 def get_watchedlist():
+    if username == "":
+        return (jsonify({"status": "fail", "message": "No Login"}), 500)
     try:
         watchedlist = combined_functions.watched_list()
         if not watchedlist:
@@ -138,12 +155,14 @@ def get_watchedlist():
 # wish-list route
 @app.route("/wishlist", methods=["GET"])
 def get_wishlist():
+    if username == "":
+        return (jsonify({"status": "fail", "message": "No Login"}), 500)
     try:
         wishlist = combined_functions.wish_list()
         if wishlist == "IMDB not Available":
             return jsonify({"status": "fail", "message": "IMDB not Available"}), 404
         if not wishlist:
-            return jsonify({"status": "fail", "message": "Nothing Wished"}), 404
+            return jsonify({"status": "ok", "wish": []}), 200
         wish_list = []
         for t in wishlist:
             wish_list.append(
@@ -174,11 +193,18 @@ def update_profile():
 # profile route
 @app.route("/profile", methods=["GET"])
 def send_profile():
+    if username == "":
+        return (jsonify({"status": "fail", "message": "No Login"}), 500)
     out = combined_functions.profile()
     if not out:
         return jsonify({"status": "error", "message": str(out)}), 500
     else:
-        out_ = {"watch": out[0], "watched": out[1], "wish": out[2]}
+        out_ = {
+            "watch": out[0],
+            "watched": out[1],
+            "wish": out[2],
+            "user": username.split()[-2] + " " + username.split()[-1],
+        }
         return jsonify({"status": "ok", "watched": out_})
 
 
@@ -194,6 +220,8 @@ def update_drama():
 @app.route("/search", methods=["POST"])
 def search():
     data = request.get_json()
+    if not data["query"]:
+        return jsonify({"status": "ok", "search": []})
     return_list = []
     search_results = combined_functions.search(data["query"])
     for drama in search_results:
@@ -209,6 +237,15 @@ def search():
             }
         )
     return jsonify({"status": "ok", "search": return_list})
+
+
+@app.route("/feedback", methods=["POST"])
+def feedback():
+    data = request.json
+    drama_name = data.get("drama_name")
+    drama_year = data.get("drama_year")
+    with open("added.txt","a") as file:file.write(f"{username} --- {drama_name} ---> {drama_year}\n")
+    return jsonify({"status": "ok"})
 
 
 if __name__ == "__main__":

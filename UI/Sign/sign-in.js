@@ -13,11 +13,11 @@ document.querySelector(".button1").addEventListener("click", function () {
         .then((res) => res.json())
         .then((data) => {
             if (data.status === "ok") {
-                alert("Login successful!");
                 window.location.href = "../Explore/explore.html"; // redirect after success
             }
             else {
                 alert("Login failed: " + data.message);
+                
             }
         })
         .catch(err => {

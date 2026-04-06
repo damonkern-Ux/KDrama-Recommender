@@ -32,7 +32,7 @@ async function fetchwishlist() {
   try {
     const res = await fetch("http://127.0.0.1:5000/wishlist");
     const data = await res.json();
-    if (data.status === "ok") {
+    if (data.status === "ok" && data.wish.length > 0) {
       const container = document.querySelectorAll(".cards-container");
       const current_query = container[0]
       current_query.innerHTML = ""; // Clear old cards
@@ -60,7 +60,18 @@ async function fetchwishlist() {
         current_query.appendChild(card);
       });
     } else {
-      alert(data.message || "No trending dramas found.");
+      const container = document.querySelectorAll(".cards-container");
+      const current_query = container[0];
+      current_query.innerHTML = ""; // Clear old cards
+      const card = document.createElement("div");
+      card.classList.add("card");
+      card.innerHTML =`
+      <div class="flip-card-inner">
+        <div class="flip-card-front">Nothing in Wish List.</div>
+        <div class="flip-card-back">Add Something in the Wish List.</div>
+      </div>
+      `;
+      current_query.appendChild(card);
     }
   } catch (err) {
     console.error("Error fetching recommendations:", err);
